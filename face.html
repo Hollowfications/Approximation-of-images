@@ -169,23 +169,30 @@
 </head>
 <body>
 
-<p class="b">Source image</p>
-<p class="c">Result</p>
+<section id="output">
+    <div>
+        <h3>Original</h3>
+        <div id="original"></div>
+    </div>
+    <div>
+        <h3>Result <span id="steps"></span></h3>
+    </div>
+</section>
 
-
-<button id="createButton" class="button button2" onclick="create()">Create new image</button>
+<form>
+<input type="submit" value="Create image" />
 <button id="saveButton" class="button button3" onclick="save()">Save image</button>
 
-<script src="interface.js"></script>
 
-<div id="mainWindow">
-</div>
 
-<form id="upload-container" enctype="multipart/form-data" method="post" onclick="download()">
-        <input id="file-input" type="file" name="file" multiple accept="image/*,image/jpeg">
-        <label for="file-input">Download image</label>
-</form>
+<!--<div id="mainWindow">-->
+<!--</div>-->
 
+<!--<form id="upload-container" enctype="multipart/form-data" method="post">-->
+<!--        <input id="file-input" type="file" name="file" multiple accept="image/*,image/jpeg">-->
+<!--        <label for="file-input">Download image</label>-->
+<!--</form>-->
+<input type="file" /></li>
 <div id="shapeChoice">
     <p>Use these shape types:</p>
     <label><input type="checkbox" name="shapeType" value="triangle" checked="checked" />triangles</label><br/>
@@ -210,5 +217,8 @@
     </p>
     <input name="mutations" type="range" min="0" max="100" value="30" />
 </div>
+</form>
+
+<script type="module" src="source/interface.js"></script>
 </body>
 </html>

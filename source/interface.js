@@ -1,27 +1,6 @@
 import * as ui from "./ui.js"; // интересно что можно и так
 import Canvas from "./canvas.js"; //                    и так
 
-//Зачем делать функцию сохранения, если можно просто нажать правой кнопкой мыши по готовому изображению и выбрать "сохранить"
-// function save() {
-//     var modal = document.getElementById("saveModal");
-//     var btn = document.getElementById("saveButton");
-//     var span = document.getElementsByClassName("closeSave")[0];
-//
-//     btn.onclick = function() {
-//         modal.style.display = "block";
-//     }
-//
-//     span.onclick = function() {
-//         modal.style.display = "none";
-//     }
-//
-//     window.onclick = function(event) {
-//         if (event.target == modal) {
-//             modal.style.display = "none";
-//         }
-//     }
-// }
-
 const nodes = {
     output: document.querySelector("#output"),
     original: document.querySelector("#original"),
@@ -32,10 +11,15 @@ const nodes = {
 let steps; // Количество шагов (фигур), за которые программа должна отрисовать изображение
 
 function go(original, cfg) { // и наконец сюда после onSubmit(e)
+    nodes.steps.innerHTML = "";
+    nodes.original.innerHTML = "";
 
+    nodes.output.style.display = "";
+    nodes.original.appendChild(original.node);
+    steps = 0;
 }
 function onSubmit(e) { // потом сюда после init()
-// такая дичь, проще с юрл работать
+    e.preventDefault(); // чушь
     let inputFile = document.querySelector("input[type=file]");
     let url = "";
     if (inputFile.files.length > 0) {
@@ -43,7 +27,7 @@ function onSubmit(e) { // потом сюда после init()
         url = URL.createObjectURL(file);
     }
     let cfg = ui.getConfig();
-    Canvas.original(url, cfg).then(original => go(original, cfg));
+    Canvas.original(url, cfg).then(original => go(original, cfg)); // какие-то новые фишки, похоже на connect'ы из Qt5
 }
 
 function init() { // то есть здесь

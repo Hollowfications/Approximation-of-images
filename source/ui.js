@@ -1,9 +1,12 @@
-const numberFields = ["steps", "shapes", "mutations"];
+import {Triangle, Rectangle, Ellipse } from "./shape.js";
+
+const numberFields = ["computeSize", "steps", "shapes", "alpha", "mutations"];
+const boolFields = ["mutateAlpha"];
 const shapeField = "shapeType";
 const shapeMap = {
-    "triangle": 1,
-    "rectangle": 2,
-    "ellipse": 3,
+    "triangle": Triangle,
+    "rectangle": Rectangle,
+    "ellipse": Ellipse
 }
 
 function fixRange(range) {
@@ -22,10 +25,6 @@ export function init() {
     // блокируем ползунки
 }
 
-export function showResult(raster) {
-// когда-нибудь
-}
-
 export function getConfig() {
     let form = document.querySelector("form");
     let cfg = {};
@@ -33,16 +32,17 @@ export function getConfig() {
     numberFields.forEach(name => {
         cfg[name] = Number(form.querySelector(`[name=${name}]`).value);
     });
-
+    boolFields.forEach(name => {
+        cfg[name] = form.querySelector(`[name=${name}]`).checked;
+    });
     cfg.shapeTypes = [];
     let shapeFields = Array.from(form.querySelectorAll(`[name=${shapeField}]`)); // не ну это же просто некрасиво, ведь так?
     shapeFields.forEach(input => {
         if (!input.checked) { return; }
         cfg.shapeTypes.push(shapeMap[input.value]);
-        // сначала нужно сделать сами полигоны, круги, треугольники и квадраты
     });
 
-    cfg.fill = "#ffffff";
+    cfg.fill = "auto";
 
     return cfg;
 }

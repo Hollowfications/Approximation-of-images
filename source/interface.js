@@ -1,10 +1,12 @@
-import * as ui from "./ui.js"; // интересно что можно и так
-import Canvas from "./canvas.js"; //                    и так
+import * as ui from "./ui.js";
+import Canvas from "./canvas.js";
+import GenAlgorithm from "./genalgorithm.js";
 
 const nodes = {
     output: document.querySelector("#output"),
     original: document.querySelector("#original"),
     steps: document.querySelector("#steps"),
+    raster: document.querySelector("#raster"),
     types: Array.from(document.querySelectorAll("#output [name=type]"))
 }
 
@@ -13,13 +15,31 @@ let steps; // Количество шагов (фигур), за которые 
 function go(original, cfg) { // и наконец сюда после onSubmit(e)
     nodes.steps.innerHTML = "";
     nodes.original.innerHTML = "";
-
     nodes.output.style.display = "";
+    nodes.raster.innerHTML = "";
     nodes.original.appendChild(original.node);
     steps = 0;
+
+    let genAlgorithm = new GenAlgorithm(original, cfg);
+    steps = 0;
+
+    let cfg2 = Object.assign({}, cfg, {width:cfg.scale*cfg.width, height:cfg.scale*cfg.height});
+    let result = Canvas.empty(cfg2);
+    result.ctx.scale(cfg.scale, cfg.scale);
+    nodes.raster.appendChild(result.node);
+
+
+    genAlgorithm.onStep = (step) => {
+        if (step && steps < cfg.steps) {
+            result.drawStep(step);
+            let percent = (100*(1-step.distance)).toFixed(2);
+            nodes.steps.innerHTML = `(${++steps} of ${cfg.steps}, ${percent}% similar)`;
+        }
+    }
+    genAlgorithm.start();
 }
 function onSubmit(e) { // потом сюда после init()
-    e.preventDefault(); // чушь
+    e.preventDefault();
     let inputFile = document.querySelector("input[type=file]");
     let url = "";
     if (inputFile.files.length > 0) {

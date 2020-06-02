@@ -18,24 +18,27 @@
     <label><input type="checkbox" name="shapeType" value="ellipse" />ellipses</label><br/>
     </div>
     <div id="scrolls">
-<div id="shapeNumber">
-    <p>Add <span class="value"></span> geometric shapes
-        (large number: better results, slower)
-    </p>
-    <input name="steps" type="range" min="1" max="500" value="50" />
-</div>
-<div id="randomShapes">
-    <p>Start every iteration with <span class="value"></span> random shapes
-        (larger number: more precise results, slower)
-    </p>
-    <input name="shapes" type="range" min="1" max="1000" value="200" />
-</div>
-<div id="stop">
-    <p>Stop shape optimization after <span class="value"></span> failures
-        (larger number: more precise results, slower)
-    </p>
-    <input name="mutations" type="range" min="0" max="100" value="30" />
-</div>
+        <div id="shapeNumber">
+            <p>Add <span class="value"></span> geometric shapes (large number: better results, slower)</p>
+            <input name="steps" type="range" min="1" max="500" value="50" />
+        </div>
+        <div id="randomShapes">
+            <p>Start every iteration with <span class="value"></span> random shapes (larger number: more precise results, slower)</p>
+            <input name="shapes" type="range" min="1" max="1000" value="200" />
+        </div>
+        <div id="stop">
+            <p>Stop shape optimization after <span class="value"></span> failures (larger number: more precise results, slower)</p>
+            <input name="mutations" type="range" min="0" max="100" value="30" />
+        </div>
+        <div id="opacityAlpha">
+            <p>Starting opacity: <span class="value"></span></p>
+            <input name="alpha" type="range" min="0" max="1" step="0.1" value="0.5" /><br/>
+            <label><input type="checkbox" name="mutateAlpha" checked="checked" />Adjust opacity automatically</label>
+        </div>
+        <div id="compSize">
+            <p>Computation size: <span class="value"></span> pixels<em>(smaller is faster)</em></p>
+            <input name="computeSize" type="range" min="128" max="512" value="256" /><br/>
+        </div>
     </div>
     <div id="buttons">
     <input type="submit" value="Create image" />
@@ -50,6 +53,7 @@
     </div>
     <div>
         <h3>Result <span id="steps"></span></h3>
+        <div class="raster" id="raster"></div>
     </div>
 </div>
 

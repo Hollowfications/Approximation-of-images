@@ -1,8 +1,8 @@
 #!/bin/bash
 set -e # Exit with nonzero exit code if anything fails
 
-SOURCE_BRANCH="master"
-TARGET_BRANCH="Hollowfications-1"
+SOURCE_BRANCH="first-action"
+TARGET_BRANCH="first-action"
 
 function docGen {
   npm run-script docs

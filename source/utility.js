@@ -23,10 +23,10 @@ export function clampColor(x) {
 }
 
 /**
- *
- * @param width
- * @param height
- * @param limit
+ * Получить масштаб
+ * @param width - ширина
+ * @param height - высота
+ * @param limit - максимум
  * @returns {number}
  */
 export function getScale(width, height, limit) {
@@ -34,9 +34,8 @@ export function getScale(width, height, limit) {
 }
 
 /**
- *
- * @param distance
- * @param pixels
+ * @param distance - расстояние
+ * @param pixels - текущие пиксели
  * @returns {number}
  */
 export function distanceToDifference(distance, pixels) {
@@ -45,8 +44,8 @@ export function distanceToDifference(distance, pixels) {
 
 /**
  *
- * @param difference
- * @param pixels
+ * @param difference - разница
+ * @param pixels - пиксели
  * @returns {number}
  */
 export function differenceToDistance(difference, pixels) {
@@ -55,8 +54,8 @@ export function differenceToDistance(difference, pixels) {
 
 /**
  *
- * @param data
- * @param dataOther
+ * @param data - информация о первом изображении
+ * @param dataOther - информация о втором изображении
  * @returns {number}
  */
 export function difference(data, dataOther) {
@@ -72,9 +71,9 @@ export function difference(data, dataOther) {
 
 /**
  *
- * @param offset
- * @param imageData
- * @param alpha
+ * @param offset - отступ
+ * @param imageData - информация об изображении
+ * @param alpha - альфа канал
  * @returns {number[]}
  */
 function computeColor(offset, imageData, alpha) {
@@ -116,9 +115,9 @@ function computeColor(offset, imageData, alpha) {
 
 /**
  *
- * @param offset
- * @param imageData
- * @param color
+ * @param offset - отступ
+ * @param imageData - информация об изображении
+ * @param color - цвет
  * @returns {number}
  */
 function computeDifferenceChange(offset, imageData, color) {
@@ -170,9 +169,9 @@ function computeDifferenceChange(offset, imageData, color) {
 
 /**
  *
- * @param offset
- * @param imageData
- * @param alpha
+ * @param offset - отступ
+ * @param imageData - информация об изображении
+ * @param alpha - альфа-канал
  * @returns {{color: string, differenceChange: number}}
  */
 export function computeColorAndDifferenceChange(offset, imageData, alpha) {

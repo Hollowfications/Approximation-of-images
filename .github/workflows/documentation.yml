@@ -1,10 +1,10 @@
-
 on:
   push:
     branches:
       - master
 
 jobs:
+
   deploy:
     runs-on: ubuntu-latest
     steps:
@@ -16,21 +16,10 @@ jobs:
         with:
           source_dir: ./source
           recurse: true
-          output_dir: ./out
-      
+          output_dir: ./docs
+
       - name: Deploy
-        uses: peaceiris/actions-gh-pages@v3
+        uses: peaceiris/actions-gh-pages@v1
         with:
-          deploy_key: ${{ secrets.ACTIONS_DEPLOY_KEY }}
-          publish_dir: ./out
-          language: node_js
-          node_js:
-            - '5'
-            - '4'
-            - '0.12'
-            - '0.10'
-          script: npm test
-          after_success: bash ./deploy.sh
-          env:
-            global:
-                - ENCRYPTION_LABEL: 3985cea5a61f
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./

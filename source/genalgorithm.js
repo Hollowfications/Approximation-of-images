@@ -23,6 +23,7 @@ export default class GenAlgorithm {
 
     /**
      * @memberOf GenAlgorithm
+     * @method start
      * Запуск алгоритма
      */
     start() {
@@ -32,6 +33,7 @@ export default class GenAlgorithm {
 
     /**
      * @memberOf GenAlgorithm
+     * @method _addShape
      * Добавляет новый примитив на холст, вызывая _findBestStep()
      */
     _addShape() {
@@ -61,6 +63,7 @@ export default class GenAlgorithm {
 
     /**
      * @memberOf GenAlgorithm
+     * @method _findBestStep
      * Находит самый подходящий шаг. Селекция, если пользоваться терминологией генетического алгоритма.
      * @returns {Promise<unknown[]>}
      */
@@ -86,6 +89,7 @@ export default class GenAlgorithm {
 
     /**
      * @memberOf GenAlgorithm
+     * @method _optimizeStep
      * Оптимизирует полученный "лучший" шаг с помощью его мутации.
      * @param {Step} step - текущий шаг
      * @returns {Promise<unknown>}

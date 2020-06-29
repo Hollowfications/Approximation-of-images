@@ -48,9 +48,9 @@ function getFill(canvas) {
         this._imageData = null;
     }
     /**
+    * Создаёт пустой холст
      * @memberOf Canvas
      * @method empty
-     * Создаёт пустой холст
      * @param cfg - текущие параметры
      * @returns {Canvas}
      */
@@ -59,9 +59,9 @@ function getFill(canvas) {
     }
 
     /**
+     * Создаёт холст для исходного изображение
      * @memberOf Canvas
      * @method original
-     * Создаёт холст для исходного изображение
      * @param url - исходное изображение в виде URL ссылки
      * @param cfg - текущие параметры
      * @returns {Promise<unknown>}
@@ -91,9 +91,9 @@ function getFill(canvas) {
 
 
     /**
+     * Создаёт копию холста
      * @memberOf Canvas
      * @method clone
-     * Создаёт копию холста
      * @returns {Canvas}
      */
     clone() {
@@ -103,9 +103,9 @@ function getFill(canvas) {
     }
 
     /**
+     * Заполняет холст цветом. Цвет настраивается в пользовательском интерфейсе
      * @memberOf Canvas
      * @method fill
-     * Заполняет холст цветом. Цвет настраивается в пользовательском интерфейсе
      * @param color
      * @returns {Canvas}
      */
@@ -116,9 +116,9 @@ function getFill(canvas) {
     }
 
     /**
+     * Возвращает изображение с холста
      * @memberOf Canvas
      * @method getImageData
-     * Возвращает изображение с холста
      * @returns {null}
      */
     getImageData() {
@@ -129,9 +129,9 @@ function getFill(canvas) {
     }
 
     /**
+     * Определяет различие в целом между двумя изображениями
      * @memberOf Canvas
      * @method difference
-     * Определяет различие в целом между двумя изображениями
      * @param {Canvas} otherCanvas
      * @returns {number}
      */
@@ -143,8 +143,9 @@ function getFill(canvas) {
     }
 
     /**
+     * Определяет разницу в расстоянии между пикселями одного изображение и другого
      * @memberOf Canvas
-     *Определяет разницу в расстоянии между пикселями одного изображение и другого
+     * @method distance
      * @param {Canvas} otherCanvas
      * @returns {*}
      */
@@ -154,9 +155,9 @@ function getFill(canvas) {
     }
 
     /**
+     * Отрисовка следующего на очереди шага
      * @memberOf Canvas
      * @method drawStep
-     * Отрисовка следующего на очереди шага
      * @param {Step} step
      * @returns {Canvas}
      */

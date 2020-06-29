@@ -9,8 +9,9 @@ import * as Utility from "./utility.js";
  */
 export class Shape {
     /**
+     * Возвращает случайную точку
      * @memberOf Shape
-     * randomPoint() - Возвращает случайную точку
+     * @method randomPoint
      * @param width - ширина
      * @param height - высота
      * @returns {number[]} - число вершин
@@ -20,8 +21,9 @@ export class Shape {
     }
 
     /**
+     * Создаёт пару переменных - ширину и высоту для текущей фигуры, чтобы в дальнейшем уже с выбранным конструктором создать таковую.
      * @memberOf Shape
-     * create - Создаёт пару переменных - ширину и высоту для текущей фигуры, чтобы в дальнейшем уже с выбранным конструктором создать таковую
+     * @method create
      * @param cfg - конфигурация
      * @returns {*}
      */
@@ -42,17 +44,18 @@ export class Shape {
     }
 
     /**
+     * Изменение свойств фигуры, в попытке сделать её более подходящей
      * @memberOf Shape
-     * @method mutate - изменение свойств фигуры, в попытке сделать её более подходящей
+     * @method mutate
      * @param cfg
      * @returns {Shape}
      */
     mutate(cfg) { return this; }
 
     /**
+     * Отображение фигуры на холсте
      * @memberOf Shape
      * @method rasterize
-     * Отображение фигуры на холсте
      * @param alpha
      * @returns {Canvas}
      */
@@ -86,9 +89,9 @@ class Polygon extends Shape {
     }
 
     /**
+     * Отрисовка линий полигона, затем их дальнейшая заливка с помощью fill()
      * @memberOf Polygon
      * @method render
-     * Отрисовка линий полигона, затем их дальнейшая заливка с помощью fill()
      * @param ctx
      */
     render(ctx) {
@@ -105,9 +108,9 @@ class Polygon extends Shape {
     }
 
     /**
+     * Изменение свойств полигона, в попытке сделать его более подходящим
      * @memberOf Polygon
      * @method mutate
-     * Изменение свойств полигона, в попытке сделать его более подходящим
      * @param cfg - конфигурация
      * @returns {Polygon}
      */
@@ -147,9 +150,9 @@ class Polygon extends Shape {
     }
 
     /**
+     * Создание случайных точек для треугольника
      * @memberOf Polygon
      * @method createPoints
-     * Создание случайных точек для треугольника
      * @param w - ширина
      * @param h - высота
      * @param count - количество точек
@@ -195,9 +198,9 @@ export class Rectangle extends Polygon {
     }
 
     /**
+     * Изменение прямоугольника в попытке сделать его лучше
      * @memberOf Rectangle
      * @method mutate
-     * Изменение прямоугольника в попытке сделать его лучше
      * @param cfg
      * @returns {Polygon}
      */
@@ -230,9 +233,10 @@ export class Rectangle extends Polygon {
     }
 
     /**
+     * Создание случайных точек на сетке пикселей.
      * @memberOf Rectangle
      * @method _createPoints
-     * Создание случайных точек на сетке пикселей.
+
      * @param w - ширина
      * @param h - высота
      * @param count - число точек
@@ -286,9 +290,9 @@ export class Ellipse extends Shape {
     }
 
     /**
+     * Изменение эллипса в попытке сделать его лучше
      * @memberOf Ellipse
      * @method mutate
-     * Изменение эллипса в попытке сделать его лучше
      * @param cfg
      * @returns {Ellipse}
      */

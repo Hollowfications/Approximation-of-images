@@ -5,11 +5,13 @@ import * as Utility from "./utility.js";
 import State from "./state.js";
 
 /**
- * @class Step - шаг
- * @param {Shape} shape - Форма
- * @param cfg - текущая конфигурация
+ * @class Step - класс абстрактного текущего шага
  */
 export default class Step {
+    /**
+     * @param {Shape} shape - Форма
+     * @param cfg - текущая конфигурация
+     */
     constructor(shape, cfg) {
         this.shape = shape;
         this.cfg = cfg;
@@ -21,7 +23,7 @@ export default class Step {
     }
     /**
      *  @memberOf Step
-     * @method apply - Применяmь данный шаг (step) к текущему положению (state) чтобы получить новое положение. Применяется после compute()
+     * Применяmь данный шаг (step) к текущему положению (state) чтобы получить новое положение. Применяется после compute()
      * @param state
      * @returns {State}
      */
@@ -32,7 +34,7 @@ export default class Step {
 
     /**
      * @memberOf Step
-     * @method compute - Найти подходящий цвет и вычислить дистанцию
+     * Найти подходящий цвет и вычислить дистанцию
      * @param {State} state - Текущее состояние
      * @param pixels
      * @returns {Promise<Step>}
@@ -57,7 +59,7 @@ export default class Step {
 
     /**
      * @memberOf Step
-     * @method mutate - возвращает слегка изменённое положение
+     * Возвращает слегка изменённое положение
      * @returns {Step}
      */
     mutate() {

@@ -8,10 +8,12 @@ import {Shape} from "./shape.js";
 
 /**
  * @class GenAlgorithm - Основной класс алгоритма
- * @param {Canvas} original - исходное изображение
- * @param cfg - настройки
  */
 export default class GenAlgorithm {
+    /**
+     * @param {Canvas} original - исходное изображение
+     * @param cfg - настройки
+     */
     constructor(original, cfg) {
         this.cfg = cfg;
         this.state = new State(original, Canvas.empty(cfg));
@@ -30,7 +32,7 @@ export default class GenAlgorithm {
 
     /**
      * @memberOf GenAlgorithm
-     * @method _addShape - Добавляет новый примитив на холст, вызывая _findBestStep()
+     * Добавляет новый примитив на холст, вызывая _findBestStep()
      */
     _addShape() {
         this._findBestStep().then(step => this._optimizeStep(step)).then(step => {
@@ -59,7 +61,7 @@ export default class GenAlgorithm {
 
     /**
      * @memberOf GenAlgorithm
-     * @method _findBestStep() - находит самый подходящий шаг. Селекция, если пользоваться терминологией генетического алгоритма.
+     * Находит самый подходящий шаг. Селекция, если пользоваться терминологией генетического алгоритма.
      * @returns {Promise<unknown[]>}
      */
     _findBestStep() {
@@ -84,7 +86,7 @@ export default class GenAlgorithm {
 
     /**
      * @memberOf GenAlgorithm
-     * @method _optimizeStep - оптимизирует полученный "лучший" шаг с помощью его мутации.
+     * Оптимизирует полученный "лучший" шаг с помощью его мутации.
      * @param {Step} step - текущий шаг
      * @returns {Promise<unknown>}
      */

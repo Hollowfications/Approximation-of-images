@@ -1,3 +1,6 @@
+/**
+ * @file Входной файл, в котором содержатся функции, отвечающие за запуск алгоритма, синхронизацию параметров и за запуск отрисовки фигур на холсте.
+ */
 import * as ui from "./ui.js";
 import Canvas from "./canvas.js";
 import GenAlgorithm from "./genalgorithm.js";

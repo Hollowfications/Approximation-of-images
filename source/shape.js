@@ -1,3 +1,6 @@
+/**
+ * @file Файл, содержащий различные абстрактные классы фигур, из которых строится новое изображение
+ */
 import Canvas from "./canvas.js";
 import * as Utility from "./utility.js";
 

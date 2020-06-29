@@ -1,3 +1,6 @@
+/**
+ * @file Файл, в котором содержатся функции для работы с пользовательским интерфейсом.
+ */
 import {Triangle, Rectangle, Ellipse } from "./shape.js";
 
 const numberFields = ["computeSize", "steps", "shapes", "alpha", "mutations"];
@@ -11,7 +14,7 @@ const shapeMap = {
 }
 
 /**
-    @method fixRange - фиксирует текущие настройки
+    Фиксирует текущие настройки
 */
 function fixRange(range) {
     function sync() {
@@ -33,7 +36,7 @@ export function init() {
 }
 
 /**
- *
+ * Возвращает текущую конфигурацию
  * @returns {{}}
  */
 export function getConfig() {

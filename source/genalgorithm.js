@@ -6,11 +6,10 @@ import State from "./state.js";
 import Canvas from "./canvas.js";
 import {Shape} from "./shape.js";
 
-/**
- * @class GenAlgorithm - Основной класс алгоритма
- */
 export default class GenAlgorithm {
     /**
+     * Основной класс алгоритма
+     * @class GenAlgorithm
      * @param {Canvas} original - исходное изображение
      * @param cfg - настройки
      */

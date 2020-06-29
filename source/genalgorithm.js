@@ -4,14 +4,9 @@ import Canvas from "./canvas.js";
 import {Shape} from "./shape.js";
 
 /**
- *
+ * @class Основной класс алгоритма
  */
 export default class GenAlgorithm {
-    /**
-     *
-     * @param original
-     * @param cfg
-     */
     constructor(original, cfg) {
         this.cfg = cfg;
         this.state = new State(original, Canvas.empty(cfg));
@@ -20,7 +15,7 @@ export default class GenAlgorithm {
             }
 
     /**
-     *
+     * Запуск алгоритма
      */
     start() {
         this._ts = Date.now();

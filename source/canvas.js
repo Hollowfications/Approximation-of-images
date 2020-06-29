@@ -68,6 +68,12 @@ export default class Canvas {
             }
         });
     }
+
+    /**
+     *
+     * @param width
+     * @param height
+     */
     constructor(width, height) {
         this.node = document.createElement("canvas");
         this.node.width = width;

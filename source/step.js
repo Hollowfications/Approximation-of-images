@@ -2,14 +2,12 @@ import * as Utility from "./utility.js";
 import State from "./state.js";
 
 /**
- *  Шаг: Форма, цвет и альфа-канал
+ * @class Шаг
+ * @param shape - Форма
+ * @param cfg - текущая конфигурация
+ * @param alpha - альфа-канал
  */
 export default class Step {
-    /**
-     *
-     * @param shape
-     * @param cfg
-     */
     constructor(shape, cfg) {
         this.shape = shape;
         this.cfg = cfg;
@@ -19,8 +17,8 @@ export default class Step {
         this.color = "#000";
         this.distance = Infinity;
     }
-    /** применять данный шаг (step) к текущему положению (state) чтобы получить новое положение. Применять только после compute()
-     *
+    /** Применять данный шаг (step) к текущему положению (state) чтобы получить новое положение. Применять только после compute()
+     * @class Шаг
      * @param state
      * @returns {State}
      */
@@ -30,8 +28,9 @@ export default class Step {
     }
 
     /**
-     *  найти подходящий цвет и вычислить дистанцию
-     * @param state
+     * @method Найти подходящий цвет и вычислить дистанцию
+     * @param state - Текущее состояние
+     * @param pixels
      * @returns {Promise<Step>}
      */
     compute(state) {

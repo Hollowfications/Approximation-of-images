@@ -49,6 +49,7 @@ function getFill(canvas) {
     }
     /**
      * @memberOf Canvas
+     * @method empty
      * Создаёт пустой холст
      * @param cfg - текущие параметры
      * @returns {Canvas}
@@ -59,6 +60,7 @@ function getFill(canvas) {
 
     /**
      * @memberOf Canvas
+     * @method original
      * Создаёт холст для исходного изображение
      * @param url - исходное изображение в виде URL ссылки
      * @param cfg - текущие параметры
@@ -90,6 +92,7 @@ function getFill(canvas) {
 
     /**
      * @memberOf Canvas
+     * @method clone
      * Создаёт копию холста
      * @returns {Canvas}
      */
@@ -101,6 +104,7 @@ function getFill(canvas) {
 
     /**
      * @memberOf Canvas
+     * @method fill
      * Заполняет холст цветом. Цвет настраивается в пользовательском интерфейсе
      * @param color
      * @returns {Canvas}
@@ -113,6 +117,7 @@ function getFill(canvas) {
 
     /**
      * @memberOf Canvas
+     * @method getImageData
      * Возвращает изображение с холста
      * @returns {null}
      */
@@ -125,6 +130,7 @@ function getFill(canvas) {
 
     /**
      * @memberOf Canvas
+     * @method difference
      * Определяет различие в целом между двумя изображениями
      * @param {Canvas} otherCanvas
      * @returns {number}
@@ -149,6 +155,7 @@ function getFill(canvas) {
 
     /**
      * @memberOf Canvas
+     * @method drawStep
      * Отрисовка следующего на очереди шага
      * @param {Step} step
      * @returns {Canvas}

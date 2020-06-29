@@ -22,8 +22,9 @@ export default class Step {
         this.distance = Infinity;
     }
     /**
-     *  @memberOf Step
      * Применяmь данный шаг (step) к текущему положению (state) чтобы получить новое положение. Применяется после compute()
+     * @memberOf Step
+     * @method apply
      * @param state
      * @returns {State}
      */
@@ -33,8 +34,9 @@ export default class Step {
     }
 
     /**
-     * @memberOf Step
      * Найти подходящий цвет и вычислить дистанцию
+     * @memberOf Step
+     * @method compute
      * @param {State} state - Текущее состояние
      * @param pixels
      * @returns {Promise<Step>}
@@ -58,8 +60,9 @@ export default class Step {
     }
 
     /**
-     * @memberOf Step
      * Возвращает слегка изменённое положение
+     * @memberOf Step
+     * @method mutate
      * @returns {Step}
      */
     mutate() {

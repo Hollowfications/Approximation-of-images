@@ -22,9 +22,9 @@ export default class GenAlgorithm {
             }
 
     /**
+     * Запуск алгоритма
      * @memberOf GenAlgorithm
      * @method start
-     * Запуск алгоритма
      */
     start() {
         this._ts = Date.now();
@@ -32,9 +32,9 @@ export default class GenAlgorithm {
     }
 
     /**
+     * Добавляет новый примитив на холст, вызывая _findBestStep()
      * @memberOf GenAlgorithm
      * @method _addShape
-     * Добавляет новый примитив на холст, вызывая _findBestStep()
      */
     _addShape() {
         this._findBestStep().then(step => this._optimizeStep(step)).then(step => {
@@ -62,9 +62,9 @@ export default class GenAlgorithm {
     }
 
     /**
+     * Находит самый подходящий шаг. Селекция, если пользоваться терминологией генетического алгоритма.
      * @memberOf GenAlgorithm
      * @method _findBestStep
-     * Находит самый подходящий шаг. Селекция, если пользоваться терминологией генетического алгоритма.
      * @returns {Promise<unknown[]>}
      */
     _findBestStep() {
@@ -88,9 +88,9 @@ export default class GenAlgorithm {
     }
 
     /**
+     * Оптимизирует полученный "лучший" шаг с помощью его мутации.
      * @memberOf GenAlgorithm
      * @method _optimizeStep
-     * Оптимизирует полученный "лучший" шаг с помощью его мутации.
      * @param {Step} step - текущий шаг
      * @returns {Promise<unknown>}
      */

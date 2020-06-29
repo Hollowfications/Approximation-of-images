@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Source: ui.js</title>
+    <title>JSDoc: Source: interface.js</title>
 
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -17,7 +17,7 @@
 
 <div id="main">
 
-    <h1 class="page-title">Source: ui.js</h1>
+    <h1 class="page-title">Source: interface.js</h1>
 
     
 
@@ -26,72 +26,89 @@
     
     <section>
         <article>
-            <pre class="prettyprint source linenums"><code>import {Triangle, Rectangle, Ellipse } from "./shape.js";
+            <pre class="prettyprint source linenums"><code>import * as ui from "./ui.js";
+import Canvas from "./canvas.js";
+import GenAlgorithm from "./genalgorithm.js";
 
-const numberFields = ["computeSize", "steps", "shapes", "alpha", "mutations"];
-const boolFields = ["mutateAlpha"];
-const fillField = "fill";
-const shapeField = "shapeType";
-const shapeMap = {
-    "triangle": Triangle,
-    "rectangle": Rectangle,
-    "ellipse": Ellipse
+const nodes = {
+    output: document.querySelector("#output"),
+    original: document.querySelector("#original"),
+    steps: document.querySelector("#steps"),
+    raster: document.querySelector("#raster"),
+    types: Array.from(document.querySelectorAll("#output [name=type]"))
 }
 
-/**
-    fixRange(range) fixes ranges of settings
-*/
-function fixRange(range) {
-    function sync() {
-        let value = range.value;
-        range.parentNode.querySelector(".value").innerHTML = value;
-    }
-
-    range.oninput = sync;
-    sync();
-}
-
+let steps; // Количество шагов (фигур), за которые программа должна отрисовать изображение
 /**
  *
+ * @param original
+ * @param cfg
  */
-export function init() {
-    let ranges = document.querySelectorAll("[type=range]");
-    Array.from(ranges).forEach(fixRange);
-    /** блокируем ползунки */
-}
+function go(original, cfg) { // и наконец сюда после onSubmit(e)
+    nodes.steps.innerHTML = "";
+    nodes.original.innerHTML = "";
+    nodes.output.style.display = "";
+    nodes.raster.innerHTML = "";
+    nodes.original.appendChild(original.node);
+    steps = 0;
 
-/**
- *
- * @returns {{}}
- */
-export function getConfig() {
-    let form = document.querySelector("form");
-    let cfg = {};
-    numberFields.forEach(name => {
-        cfg[name] = Number(form.querySelector(`[name=${name}]`).value);
-    });
-    boolFields.forEach(name => {
-        cfg[name] = form.querySelector(`[name=${name}]`).checked;
-    });
-    cfg.shapeTypes = [];
-    let shapeFields = Array.from(form.querySelectorAll(`[name=${shapeField}]`)); // не ну это же просто некрасиво, ведь так?
-    shapeFields.forEach(input => {
-        if (!input.checked) { return; }
-        cfg.shapeTypes.push(shapeMap[input.value]);
-    });
+    let genAlgorithm = new GenAlgorithm(original, cfg);
+    steps = 0;
 
-    let fillFields = Array.from(form.querySelectorAll(`[name=${fillField}]`));
-    fillFields.forEach(input => {
-        if (!input.checked) { return; }
+    let cfg2 = Object.assign({}, cfg, {width:cfg.scale*cfg.width, height:cfg.scale*cfg.height});
+    let result = Canvas.empty(cfg2);
+    result.ctx.scale(cfg.scale, cfg.scale);
+    nodes.raster.appendChild(result.node);
 
-        switch (input.value) {
-            case "auto": cfg.fill = "auto"; break;
-            case "fixed": cfg.fill = form.querySelector("[name='fill-color']").value; break;
+
+    genAlgorithm.onStep = (step) => {
+        if (step &amp;&amp; steps &lt; cfg.steps) {
+            result.drawStep(step);
+            let percent = (100*(1-step.distance)).toFixed(2);
+            nodes.steps.innerHTML = `(${++steps} of ${cfg.steps}, ${percent}% similar)`;
         }
-    });
-    return cfg;
+    }
+    genAlgorithm.start();
 }
-</code></pre>
+
+/**
+ *
+ * @param e
+ */
+function onSubmit(e) { // потом сюда после init()
+    e.preventDefault();
+    let inputFile = document.querySelector("input[type=file]");
+    let url = "";
+    if (inputFile.files.length > 0) {
+        let file = inputFile.files[0];
+        url = URL.createObjectURL(file);
+    }
+    let cfg = ui.getConfig();
+    Canvas.original(url, cfg).then(original => go(original, cfg)); // какие-то новые фишки, похоже на connect'ы из Qt5
+}
+
+/**
+ *
+ */
+function init() { // то есть здесь
+    nodes.output.style.display = "none";
+    nodes.types.forEach(input => input.addEventListener("click", syncType));
+    ui.init();
+    syncType();
+    document.querySelector("form").addEventListener("submit", onSubmit);
+}
+
+/**
+ *
+ */
+function syncType() {
+    nodes.output.className = "";
+    nodes.types.forEach(input => {
+        if (input.checked) { nodes.output.classList.add(input.value); }
+    });
+}
+
+init(); // запуск идёт отсюда</code></pre>
         </article>
     </section>
 

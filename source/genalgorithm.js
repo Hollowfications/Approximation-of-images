@@ -3,7 +3,15 @@ import State from "./state.js";
 import Canvas from "./canvas.js";
 import {Shape} from "./shape.js";
 
+/**
+ *
+ */
 export default class GenAlgorithm {
+    /**
+     *
+     * @param original
+     * @param cfg
+     */
     constructor(original, cfg) {
         this.cfg = cfg;
         this.state = new State(original, Canvas.empty(cfg));
@@ -11,11 +19,18 @@ export default class GenAlgorithm {
         this.onStep = () => {};
             }
 
+    /**
+     *
+     */
     start() {
         this._ts = Date.now();
         this._addShape();
     }
 
+    /**
+     *
+     * @private
+     */
     _addShape() {
         this._findBestStep().then(step => this._optimizeStep(step)).then(step => {
             this._steps++;
@@ -29,6 +44,10 @@ export default class GenAlgorithm {
         });
     }
 
+    /**
+     *
+     * @private
+     */
     _continue() {
         if (this._steps < this.cfg.steps) {
             setTimeout(() => this._addShape(), 10);
@@ -37,6 +56,11 @@ export default class GenAlgorithm {
         }
     }
 
+    /**
+     *
+     * @returns {Promise<unknown[]>}
+     * @private
+     */
     _findBestStep() {
         const LIMIT = this.cfg.shapes;
 
@@ -57,6 +81,12 @@ export default class GenAlgorithm {
         return Promise.all(promises).then(() => bestStep);
     }
 
+    /**
+     *
+     * @param step
+     * @returns {Promise<unknown>}
+     * @private
+     */
     _optimizeStep(step) {
         const LIMIT = this.cfg.mutations;
 

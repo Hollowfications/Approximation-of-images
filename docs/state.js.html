@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Home</title>
+    <title>JSDoc: Source: state.js</title>
 
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -17,32 +17,34 @@
 
 <div id="main">
 
-    <h1 class="page-title">Home</h1>
+    <h1 class="page-title">Source: state.js</h1>
 
     
 
 
 
     
-
-
-    <h3> </h3>
-
-
-
-
-
-
-
-
-
-
-    
-
-
-
-
-
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>/**
+ *
+ */
+export default class State {
+    /**
+     *
+     * @param target
+     * @param canvas
+     * @param distance
+     */
+    constructor(target, canvas, distance = Infinity) {
+        this.target = target;
+        this.canvas = canvas;
+        this.distance = (distance == Infinity ? target.distance(canvas) : distance);
+    }
+}
+</code></pre>
+        </article>
+    </section>
 
 
 

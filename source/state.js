@@ -1,7 +1,7 @@
 /**
- *
- * @param target - следующее состояние
- * @param canvas - текущее состояние - в виде холста
+ * @class State - текущее состояние
+ * @param {Canvas} target - следующее состояние
+ * @param {Canvas} canvas - текущее состояние - в виде холста
  * @param distance - расстояние между пикселями прошлого и текущего изображений
  */
 export default class State {

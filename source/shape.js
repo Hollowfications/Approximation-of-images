@@ -6,6 +6,7 @@ import * as Utility from "./utility.js";
  */
 export class Shape {
     /**
+     * @memberOf Shape
      * @method randomPoint() - Возвращает случайную точку
      * @param width - ширина
      * @param height - высота
@@ -16,6 +17,7 @@ export class Shape {
     }
 
     /**
+     * @memberOf Shape
      * @method create - Создаёт пару переменных - ширину и высоту для текущей фигуры, чтобы в дальнейшем уже с выбранным конструктором создать таковую
      * @param cfg - конфигурация
      * @returns {*}
@@ -37,6 +39,7 @@ export class Shape {
     }
 
     /**
+     * @memberOf Shape
      * @method mutate - изменение свойств фигуры, в попытке сделать её более подходящей
      * @param cfg
      * @returns {Shape}
@@ -44,6 +47,7 @@ export class Shape {
     mutate(cfg) { return this; }
 
     /**
+     * @memberOf Shape
      * @method rasterize - Отображение фигуры на холсте
      * @param alpha
      * @returns {Canvas}
@@ -78,6 +82,7 @@ class Polygon extends Shape {
     }
 
     /**
+     * @memberOf Polygon
      * @method render - Отрисовка линий полигона, затем их дальнейшая заливка с помощью fill()
      * @param ctx
      */
@@ -95,6 +100,7 @@ class Polygon extends Shape {
     }
 
     /**
+     * @memberOf Polygon
      * @method mutate - изменение свойств полигона, в попытке сделать его более подходящим
      * @param cfg - конфигурация
      * @returns {Polygon}
@@ -135,6 +141,7 @@ class Polygon extends Shape {
     }
 
     /**
+     * @memberOf Polygon
      * @method createPoints - создание случайных точек для треугольника
      * @param w - ширина
      * @param h - высота
@@ -181,6 +188,7 @@ export class Rectangle extends Polygon {
     }
 
     /**
+     * @memberOf Rectangle
      * @method mutate - Изменение прямоугольника в попытке сделать его лучше
      * @param cfg
      * @returns {Polygon}
@@ -214,7 +222,8 @@ export class Rectangle extends Polygon {
     }
 
     /**
-     * @method - создание случайных точек на сетке пикселей.
+     * @memberOf Rectangle
+     * @method _createPoints - создание случайных точек на сетке пикселей.
      * @param w - ширина
      * @param h - высота
      * @param count - число точек
@@ -256,6 +265,11 @@ export class Ellipse extends Shape {
 
         this.computeBbox();
     }
+
+    /**
+     *  @memberOf Ellipse
+     * @private
+     */
     render(ctx) {
         ctx.beginPath();
         ctx.ellipse(this.center[0], this.center[1], this.rx, this.ry, 0, 0, 2*Math.PI, false);
@@ -263,6 +277,7 @@ export class Ellipse extends Shape {
     }
 
     /**
+     * @memberOf Ellipse
      * @method mutate -  Изменение эллипса в попытке сделать его лучше
      * @param cfg
      * @returns {Ellipse}

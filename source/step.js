@@ -4,8 +4,7 @@ import State from "./state.js";
 /**
  * @class Step - шаг
  * @param {Shape} shape - Форма
- * @param {cfg} cfg - текущая конфигурация
- * @param alpha - альфа-канал
+ * @param cfg - текущая конфигурация
  */
 export default class Step {
     constructor(shape, cfg) {
@@ -18,6 +17,7 @@ export default class Step {
         this.distance = Infinity;
     }
     /**
+     *  @memberOf Step
      * @method apply - Применяmь данный шаг (step) к текущему положению (state) чтобы получить новое положение. Применяется после compute()
      * @param state
      * @returns {State}
@@ -28,6 +28,7 @@ export default class Step {
     }
 
     /**
+     * @memberOf Step
      * @method compute - Найти подходящий цвет и вычислить дистанцию
      * @param {State} state - Текущее состояние
      * @param pixels
@@ -52,7 +53,7 @@ export default class Step {
     }
 
     /**
-     * *
+     * @memberOf Step
      * @method mutate - возвращает слегка изменённое положение
      * @returns {Step}
      */

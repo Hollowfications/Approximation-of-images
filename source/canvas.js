@@ -31,10 +31,14 @@ function getFill(canvas) {
 
 /**
  * @class Canvas - Класс, отвечающий за отрисовку изображений, абстрактный холст
+ *
+ * @param width - ширина холста
+ * @param height - высота холста
  */
-export default class Canvas {
+ export default class Canvas {
     /**
-     * @method empty - создаёт пустой холст
+     * @memberOf Canvas
+     * @function empty - создаёт пустой холст
      * @param cfg - текущие параметры
      * @returns {Canvas}
      */
@@ -43,6 +47,7 @@ export default class Canvas {
     }
 
     /**
+     * @memberOf Canvas
      * @method original - Создаёт холст для исходного изображение
      * @param url - исходное изображение в виде URL ссылки
      * @param cfg - текущие параметры
@@ -69,11 +74,7 @@ export default class Canvas {
         });
     }
 
-    /**
-     *
-     * @param width - ширина холста
-     * @param height - высота холста
-     */
+
     constructor(width, height) {
         this.node = document.createElement("canvas");
         this.node.width = width;
@@ -83,6 +84,7 @@ export default class Canvas {
     }
 
     /**
+     * @memberOf Canvas
      * @method clone - Создаёт копию холста
      * @returns {Canvas}
      */
@@ -93,6 +95,7 @@ export default class Canvas {
     }
 
     /**
+     * @memberOf Canvas
      * @method Заполняет холст цветом. Цвет настраивается в пользовательском интерфейсе
      * @param color
      * @returns {Canvas}
@@ -104,6 +107,7 @@ export default class Canvas {
     }
 
     /**
+     * @memberOf Canvas
      * @method getImageData - Возвращает изображение с холста
      * @returns {null}
      */
@@ -115,6 +119,7 @@ export default class Canvas {
     }
 
     /**
+     * @memberOf Canvas
      * @method difference - Определяет различие в целом между двумя изображениями
      * @param {Canvas} otherCanvas
      * @returns {number}
@@ -127,6 +132,7 @@ export default class Canvas {
     }
 
     /**
+     * @memberOf Canvas
      * @method distance - Определяет разницу в расстоянии между пикселями одного изображение и другого
      * @param {Canvas} otherCanvas
      * @returns {*}
@@ -137,6 +143,7 @@ export default class Canvas {
     }
 
     /**
+     * @memberOf Canvas
      * @method drawStep - Отрисовка следующего на очереди шага
      * @param {Step} step
      * @returns {Canvas}

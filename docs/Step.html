@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Class: Rectangle</title>
+    <title>JSDoc: Class: Step</title>
 
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -17,7 +17,7 @@
 
 <div id="main">
 
-    <h1 class="page-title">Class: Rectangle</h1>
+    <h1 class="page-title">Class: Step</h1>
 
     
 
@@ -28,9 +28,7 @@
 
 <header>
     
-        <h2><span class="attribs"><span class="type-signature"></span></span>Rectangle<span class="signature">(w, h)</span><span class="type-signature"></span></h2>
-        
-            <div class="class-description">Rectangle - класс прямоугольника, почти все методы из Polygon переписаны</div>
+        <h2><span class="attribs"><span class="type-signature"></span></span>Step<span class="signature">(shape, cfg)</span><span class="type-signature"></span></h2>
         
     
 </header>
@@ -41,16 +39,18 @@
         
 
     
-    <h2>Constructor</h2>
-    
 
     
-    <h4 class="name" id="Rectangle"><span class="type-signature"></span>new Rectangle<span class="signature">(w, h)</span><span class="type-signature"></span></h4>
+    <h4 class="name" id="Step"><span class="type-signature"></span>new Step<span class="signature">(shape, cfg)</span><span class="type-signature"></span></h4>
     
 
     
 
 
+
+<div class="description">
+    Класс абстрактного текущего шага
+</div>
 
 
 
@@ -85,10 +85,15 @@
 
         <tr>
             
-                <td class="name"><code>w</code></td>
+                <td class="name"><code>shape</code></td>
             
 
             <td class="type">
+            
+                
+<span class="param-type"><a href="Shape.html">Shape</a></span>
+
+
             
             </td>
 
@@ -96,14 +101,14 @@
 
             
 
-            <td class="description last">ширина</td>
+            <td class="description last">Форма</td>
         </tr>
 
     
 
         <tr>
             
-                <td class="name"><code>h</code></td>
+                <td class="name"><code>cfg</code></td>
             
 
             <td class="type">
@@ -114,7 +119,7 @@
 
             
 
-            <td class="description last">высота</td>
+            <td class="description last">текущая конфигурация</td>
         </tr>
 
     
@@ -155,7 +160,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="shape.js.html">shape.js</a>, <a href="shape.js.html#line196">line 196</a>
+        <a href="step.js.html">step.js</a>, <a href="step.js.html#line8">line 8</a>
     </li></ul></dd>
     
 
@@ -193,13 +198,6 @@
     
 
     
-        <h3 class="subsection-title">Classes</h3>
-
-        <dl>
-            <dt><a href="Rectangle.html">Rectangle</a></dt>
-            <dd></dd>
-        </dl>
-    
 
     
 
@@ -218,7 +216,7 @@
     
 
     
-    <h4 class="name" id="._createPoints"><span class="type-signature">(static) </span>_createPoints<span class="signature">(w, h, count)</span><span class="type-signature"> &rarr; {Array.&lt;Array.&lt;number>>}</span></h4>
+    <h4 class="name" id=".apply"><span class="type-signature">(static) </span>apply<span class="signature">(state)</span><span class="type-signature"> &rarr; {<a href="State.html">State</a>}</span></h4>
     
 
     
@@ -226,7 +224,7 @@
 
 
 <div class="description">
-    Создание случайных точек на сетке пикселей.
+    Применяmь данный шаг (step) к текущему положению (state) чтобы получить новое положение. Применяется после compute()
 </div>
 
 
@@ -262,193 +260,7 @@
 
         <tr>
             
-                <td class="name"><code>w</code></td>
-            
-
-            <td class="type">
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">ширина</td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>h</code></td>
-            
-
-            <td class="type">
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">высота</td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>count</code></td>
-            
-
-            <td class="type">
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">число точек</td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="shape.js.html">shape.js</a>, <a href="shape.js.html#line235">line 235</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<h5>Returns:</h5>
-
-        
-
-
-<dl>
-    <dt>
-        Type
-    </dt>
-    <dd>
-        
-<span class="param-type">Array.&lt;Array.&lt;number>></span>
-
-
-    </dd>
-</dl>
-
-    
-
-
-
-
-
-        
-            
-
-    
-
-    
-    <h4 class="name" id=".mutate"><span class="type-signature">(static) </span>mutate<span class="signature">(cfg)</span><span class="type-signature"> &rarr; {<a href="Polygon.html">Polygon</a>}</span></h4>
-    
-
-    
-
-
-
-<div class="description">
-    Изменение прямоугольника в попытке сделать его лучше
-</div>
-
-
-
-
-
-
-
-
-
-    <h5>Parameters:</h5>
-    
-
-<table class="params">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>cfg</code></td>
+                <td class="name"><code>state</code></td>
             
 
             <td class="type">
@@ -500,7 +312,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="shape.js.html">shape.js</a>, <a href="shape.js.html#line200">line 200</a>
+        <a href="step.js.html">step.js</a>, <a href="step.js.html#line23">line 23</a>
     </li></ul></dd>
     
 
@@ -536,7 +348,286 @@
     </dt>
     <dd>
         
-<span class="param-type"><a href="Polygon.html">Polygon</a></span>
+<span class="param-type"><a href="State.html">State</a></span>
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id=".compute"><span class="type-signature">(static) </span>compute<span class="signature">(state, pixels)</span><span class="type-signature"> &rarr; {Promise.&lt;<a href="Step.html">Step</a>>}</span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    Найти подходящий цвет и вычислить дистанцию
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>state</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><a href="State.html">State</a></span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">Текущее состояние</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>pixels</code></td>
+            
+
+            <td class="type">
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="step.js.html">step.js</a>, <a href="step.js.html#line35">line 35</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">Promise.&lt;<a href="Step.html">Step</a>></span>
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id=".mutate"><span class="type-signature">(static) </span>mutate<span class="signature">()</span><span class="type-signature"> &rarr; {<a href="Step.html">Step</a>}</span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    Возвращает слегка изменённое положение
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="step.js.html">step.js</a>, <a href="step.js.html#line61">line 61</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type"><a href="Step.html">Step</a></span>
 
 
     </dd>

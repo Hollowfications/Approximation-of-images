@@ -4,11 +4,10 @@
 import * as Utility from "./utility.js";
 import State from "./state.js";
 
-/**
- * @class Step - класс абстрактного текущего шага
- */
 export default class Step {
     /**
+     * Класс абстрактного текущего шага
+     * @class Step
      * @param {Shape} shape - Форма
      * @param cfg - текущая конфигурация
      */

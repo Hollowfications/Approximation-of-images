@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Class: Ellipse</title>
+    <title>JSDoc: Class: State</title>
 
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -17,7 +17,7 @@
 
 <div id="main">
 
-    <h1 class="page-title">Class: Ellipse</h1>
+    <h1 class="page-title">Class: State</h1>
 
     
 
@@ -28,9 +28,7 @@
 
 <header>
     
-        <h2><span class="attribs"><span class="type-signature"></span></span>Ellipse<span class="signature">(w, h)</span><span class="type-signature"></span></h2>
-        
-            <div class="class-description">Ellipse() - класс эллипса</div>
+        <h2><span class="attribs"><span class="type-signature"></span></span>State<span class="signature">(target, canvas, distance)</span><span class="type-signature"></span></h2>
         
     
 </header>
@@ -41,16 +39,18 @@
         
 
     
-    <h2>Constructor</h2>
-    
 
     
-    <h4 class="name" id="Ellipse"><span class="type-signature"></span>new Ellipse<span class="signature">(w, h)</span><span class="type-signature"></span></h4>
+    <h4 class="name" id="State"><span class="type-signature"></span>new State<span class="signature">(target, canvas, distance)</span><span class="type-signature"></span></h4>
     
 
     
 
 
+
+<div class="description">
+    Текущее состояние
+</div>
 
 
 
@@ -85,10 +85,15 @@
 
         <tr>
             
-                <td class="name"><code>w</code></td>
+                <td class="name"><code>target</code></td>
             
 
             <td class="type">
+            
+                
+<span class="param-type"><a href="Canvas.html">Canvas</a></span>
+
+
             
             </td>
 
@@ -96,14 +101,37 @@
 
             
 
-            <td class="description last">ширина</td>
+            <td class="description last">следующее состояние</td>
         </tr>
 
     
 
         <tr>
             
-                <td class="name"><code>h</code></td>
+                <td class="name"><code>canvas</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><a href="Canvas.html">Canvas</a></span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">текущее состояние - в виде холста</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>distance</code></td>
             
 
             <td class="type">
@@ -114,7 +142,7 @@
 
             
 
-            <td class="description last">высота</td>
+            <td class="description last">расстояние между пикселями прошлого и текущего изображений</td>
         </tr>
 
     
@@ -155,7 +183,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="shape.js.html">shape.js</a>, <a href="shape.js.html#line272">line 272</a>
+        <a href="state.js.html">state.js</a>, <a href="state.js.html#line6">line 6</a>
     </li></ul></dd>
     
 
@@ -193,13 +221,6 @@
     
 
     
-        <h3 class="subsection-title">Classes</h3>
-
-        <dl>
-            <dt><a href="Ellipse.html">Ellipse</a></dt>
-            <dd></dd>
-        </dl>
-    
 
     
 
@@ -209,160 +230,6 @@
 
     
 
-    
-        <h3 class="subsection-title">Methods</h3>
-
-        
-            
-
-    
-
-    
-    <h4 class="name" id=".mutate"><span class="type-signature">(static) </span>mutate<span class="signature">(cfg)</span><span class="type-signature"> &rarr; {<a href="Ellipse.html">Ellipse</a>}</span></h4>
-    
-
-    
-
-
-
-<div class="description">
-    Изменение эллипса в попытке сделать его лучше
-</div>
-
-
-
-
-
-
-
-
-
-    <h5>Parameters:</h5>
-    
-
-<table class="params">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>cfg</code></td>
-            
-
-            <td class="type">
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"></td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="shape.js.html">shape.js</a>, <a href="shape.js.html#line292">line 292</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<h5>Returns:</h5>
-
-        
-
-
-<dl>
-    <dt>
-        Type
-    </dt>
-    <dd>
-        
-<span class="param-type"><a href="Ellipse.html">Ellipse</a></span>
-
-
-    </dd>
-</dl>
-
-    
-
-
-
-
-
-        
     
 
     

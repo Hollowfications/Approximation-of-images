@@ -30,22 +30,22 @@
 import * as Utility from "./utility.js";
 
 /**
- *
+ *  @class Shape - абстрактный класс фигуры
  */
 export class Shape {
     /**
-     *
-     * @param width
-     * @param height
-     * @returns {number[]}
+     * @method randomPoint() - Возвращает случайную точку
+     * @param width - ширина
+     * @param height - высота
+     * @returns {number[]} - число вершин
      */
     static randomPoint(width, height) {
         return [~~(Math.random()*width), ~~(Math.random()*height)];
     }
 
     /**
-     *
-     * @param cfg
+     * @method create - Создаёт пару переменных - ширину и высоту для текущей фигуры, чтобы в дальнейшем уже с выбранным конструктором создать таковую
+     * @param cfg - конфигурация
      * @returns {*}
      */
     static create(cfg) {
@@ -57,22 +57,22 @@ export class Shape {
 
     /**
      *
-     * @param w
-     * @param h
+     * @param w - ширина
+     * @param h - высота
      */
     constructor(w, h) {
         this.bbox = {};
     }
 
     /**
-     *
+     * @method mutate - изменение свойств фигуры, в попытке сделать её более подходящей
      * @param cfg
      * @returns {Shape}
      */
     mutate(cfg) { return this; }
 
     /**
-     *
+     * @method rasterize - Отображение фигуры на холсте
      * @param alpha
      * @returns {Canvas}
      */
@@ -86,22 +86,18 @@ export class Shape {
         return canvas;
     }
 
-    /**
-     *
-     * @param ctx
-     */
     render(ctx) {}
 }
 
 /**
- *
+ * @class Polygon - Класс полигона
  */
 class Polygon extends Shape {
     /**
      *
-     * @param w
-     * @param h
-     * @param count
+     * @param w - ширина
+     * @param h - высота
+     * @param count - число вершин у полигона
      */
     constructor(w, h, count) {
         super(w, h);
@@ -110,7 +106,7 @@ class Polygon extends Shape {
     }
 
     /**
-     *
+     * @method render - Отрисовка линий полигона, затем их дальнейшая заливка с помощью fill()
      * @param ctx
      */
     render(ctx) {
@@ -127,8 +123,8 @@ class Polygon extends Shape {
     }
 
     /**
-     *
-     * @param cfg
+     * @method mutate - изменение свойств полигона, в попытке сделать его более подходящим
+     * @param cfg - конфигурация
      * @returns {Polygon}
      */
     mutate(cfg) {
@@ -146,10 +142,6 @@ class Polygon extends Shape {
         return clone.computeBbox();
     }
 
-    /**
-     *
-     * @returns {Polygon}
-     */
     computeBbox() {
         let min = [
             this.points.reduce((v, p) => Math.min(v, p[0]), Infinity),
@@ -171,12 +163,11 @@ class Polygon extends Shape {
     }
 
     /**
-     *
-     * @param w
-     * @param h
-     * @param count
-     * @returns {number[]}
-     * @private
+     * @method createPoints - создание случайных точек для треугольника
+     * @param w - ширина
+     * @param h - высота
+     * @param count - количество точек
+     * @returns {number[]} - массив точек
      */
     _createPoints(w, h, count) {
         let first = Shape.randomPoint(w, h);
@@ -196,7 +187,7 @@ class Polygon extends Shape {
 }
 
 /**
- *
+ * @class Trianle - класс треугольника, использует методы из родителя Polygon
  */
 export class Triangle extends Polygon {
     constructor(w, h) {
@@ -205,20 +196,20 @@ export class Triangle extends Polygon {
 }
 
 /**
- *
+ * @class Rectangle - класс прямоугольника, почти все методы из Polygon переписаны
  */
 export class Rectangle extends Polygon {
     /**
      *
-     * @param w
-     * @param h
+     * @param w - ширина
+     * @param h - высота
      */
     constructor(w, h) {
         super(w, h, 4);
     }
 
     /**
-     *
+     * @method mutate - Изменение прямоугольника в попытке сделать его лучше
      * @param cfg
      * @returns {Polygon}
      */
@@ -251,12 +242,11 @@ export class Rectangle extends Polygon {
     }
 
     /**
-     *
-     * @param w
-     * @param h
-     * @param count
+     * @method - создание случайных точек на сетке пикселей.
+     * @param w - ширина
+     * @param h - высота
+     * @param count - число точек
      * @returns {number[][]}
-     * @private
      */
     _createPoints(w, h, count) {
         let p1 = Shape.randomPoint(w, h);
@@ -277,13 +267,13 @@ export class Rectangle extends Polygon {
 }
 
 /**
- *
+ * @class Ellipse() - класс эллипса
  */
 export class Ellipse extends Shape {
     /**
      *
-     * @param w
-     * @param h
+     * @param w - ширина
+     * @param h - высота
      */
     constructor(w, h) {
         super(w, h);
@@ -294,11 +284,6 @@ export class Ellipse extends Shape {
 
         this.computeBbox();
     }
-
-    /**
-     *
-     * @param ctx
-     */
     render(ctx) {
         ctx.beginPath();
         ctx.ellipse(this.center[0], this.center[1], this.rx, this.ry, 0, 0, 2*Math.PI, false);
@@ -306,7 +291,7 @@ export class Ellipse extends Shape {
     }
 
     /**
-     *
+     * @method mutate -  Изменение эллипса в попытке сделать его лучше
      * @param cfg
      * @returns {Ellipse}
      */
@@ -337,11 +322,6 @@ export class Ellipse extends Shape {
 
         return clone.computeBbox();
     }
-
-    /**
-     *
-     * @returns {Ellipse}
-     */
     computeBbox() {
         this.bbox = {
             left: this.center[0] - this.rx,
@@ -361,13 +341,13 @@ export class Ellipse extends Shape {
 </div>
 
 <nav>
-    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="Ellipse.html">Ellipse</a></li><li><a href="module.exports.html">exports</a></li><li><a href="Polygon.html">Polygon</a></li><li><a href="Rectangle.html">Rectangle</a></li><li><a href="Shape.html">Shape</a></li><li><a href="Triangle.html">Triangle</a></li><li><a href="%2525D0%2525A8%2525D0%2525B0%2525D0%2525B3.html">Шаг</a></li></ul><h3>Global</h3><ul><li><a href="global.html#clamp">clamp</a></li><li><a href="global.html#clampColor">clampColor</a></li><li><a href="global.html#clone">clone</a></li><li><a href="global.html#computeColor">computeColor</a></li><li><a href="global.html#computeColorAndDifferenceChange">computeColorAndDifferenceChange</a></li><li><a href="global.html#computeDifferenceChange">computeDifferenceChange</a></li><li><a href="global.html#difference">difference</a></li><li><a href="global.html#differenceToDistance">differenceToDistance</a></li><li><a href="global.html#distance">distance</a></li><li><a href="global.html#distanceToDifference">distanceToDifference</a></li><li><a href="global.html#drawStep">drawStep</a></li><li><a href="global.html#empty">empty</a></li><li><a href="global.html#fill">fill</a></li><li><a href="global.html#fixRange">fixRange</a></li><li><a href="global.html#getConfig">getConfig</a></li><li><a href="global.html#getFill">getFill</a></li><li><a href="global.html#getImageData">getImageData</a></li><li><a href="global.html#getScale">getScale</a></li><li><a href="global.html#go">go</a></li><li><a href="global.html#init">init</a></li><li><a href="global.html#mutate">mutate</a></li><li><a href="global.html#onSubmit">onSubmit</a></li><li><a href="global.html#original">original</a></li><li><a href="global.html#start">start</a></li><li><a href="global.html#syncType">syncType</a></li><li><a href="global.html#%25D0%259D%25D0%25B0%25D0%25B9%25D1%2582%25D0%25B8%25D0%25BF%25D0%25BE%25D0%25B4%25D1%2585%25D0%25BE%25D0%25B4%25D1%258F%25D1%2589%25D0%25B8%25D0%25B9%25D1%2586%25D0%25B2%25D0%25B5%25D1%2582%25D0%25B8%25D0%25B2%25D1%258B%25D1%2587%25D0%25B8%25D1%2581%25D0%25BB%25D0%25B8%25D1%2582%25D1%258C%25D0%25B4%25D0%25B8%25D1%2581%25D1%2582%25D0%25B0%25D0%25BD%25D1%2586%25D0%25B8%25D1%258E">Найти подходящий цвет и вычислить дистанцию</a></li></ul>
+    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="Ellipse.html">Ellipse</a></li><li><a href="module.exports.html">exports</a></li><li><a href="Polygon.html">Polygon</a></li><li><a href="Rectangle.html">Rectangle</a></li><li><a href="Shape.html">Shape</a></li><li><a href="Triangle.html">Triangle</a></li></ul><h3>Global</h3><ul><li><a href="global.html#-%25D1%2581%25D0%25BE%25D0%25B7%25D0%25B4%25D0%25B0%25D0%25BD%25D0%25B8%25D0%25B5%25D1%2581%25D0%25BB%25D1%2583%25D1%2587%25D0%25B0%25D0%25B9%25D0%25BD%25D1%258B%25D1%2585%25D1%2582%25D0%25BE%25D1%2587%25D0%25B5%25D0%25BA%25D0%25BD%25D0%25B0%25D1%2581%25D0%25B5%25D1%2582%25D0%25BA%25D0%25B5%25D0%25BF%25D0%25B8%25D0%25BA%25D1%2581%25D0%25B5%25D0%25BB%25D0%25B5%25D0%25B9.">- создание случайных точек на сетке пикселей.</a></li><li><a href="global.html#_optimizeStep-%25D0%25BE%25D0%25BF%25D1%2582%25D0%25B8%25D0%25BC%25D0%25B8%25D0%25B7%25D1%2583%25D1%2580%25D1%2583%25D0%25B5%25D1%2582%25D0%25BF%25D0%25BE%25D0%25BB%25D1%2583%25D1%2587%25D0%25B5%25D0%25BD%25D0%25BD%25D1%258B%25D0%25B9%2522%25D0%25BB%25D1%2583%25D1%2587%25D1%2588%25D0%25B8%25D0%25B9%2522%25D1%2588%25D0%25B0%25D0%25B3%25D1%2581%25D0%25BF%25D0%25BE%25D0%25BC%25D0%25BE%25D1%2589%25D1%258C%25D1%258E%25D0%25B5%25D0%25B3%25D0%25BE%25D0%25BC%25D1%2583%25D1%2582%25D0%25B0%25D1%2586%25D0%25B8%25D0%25B8.">_optimizeStep - оптимизурует полученный "лучший" шаг с помощью его мутации.</a></li><li><a href="global.html#clamp">clamp</a></li><li><a href="global.html#clampColor">clampColor</a></li><li><a href="global.html#clone-%25D0%25A1%25D0%25BE%25D0%25B7%25D0%25B4%25D0%25B0%25D1%2591%25D1%2582%25D0%25BA%25D0%25BE%25D0%25BF%25D0%25B8%25D1%258E%25D1%2585%25D0%25BE%25D0%25BB%25D1%2581%25D1%2582%25D0%25B0">clone - Создаёт копию холста</a></li><li><a href="global.html#compute-%25D0%259D%25D0%25B0%25D0%25B9%25D1%2582%25D0%25B8%25D0%25BF%25D0%25BE%25D0%25B4%25D1%2585%25D0%25BE%25D0%25B4%25D1%258F%25D1%2589%25D0%25B8%25D0%25B9%25D1%2586%25D0%25B2%25D0%25B5%25D1%2582%25D0%25B8%25D0%25B2%25D1%258B%25D1%2587%25D0%25B8%25D1%2581%25D0%25BB%25D0%25B8%25D1%2582%25D1%258C%25D0%25B4%25D0%25B8%25D1%2581%25D1%2582%25D0%25B0%25D0%25BD%25D1%2586%25D0%25B8%25D1%258E">compute - Найти подходящий цвет и вычислить дистанцию</a></li><li><a href="global.html#computeColor">computeColor</a></li><li><a href="global.html#computeColorAndDifferenceChange">computeColorAndDifferenceChange</a></li><li><a href="global.html#computeDifferenceChange">computeDifferenceChange</a></li><li><a href="global.html#createPoints-%25D1%2581%25D0%25BE%25D0%25B7%25D0%25B4%25D0%25B0%25D0%25BD%25D0%25B8%25D0%25B5%25D1%2581%25D0%25BB%25D1%2583%25D1%2587%25D0%25B0%25D0%25B9%25D0%25BD%25D1%258B%25D1%2585%25D1%2582%25D0%25BE%25D1%2587%25D0%25B5%25D0%25BA%25D0%25B4%25D0%25BB%25D1%258F%25D1%2582%25D1%2580%25D0%25B5%25D1%2583%25D0%25B3%25D0%25BE%25D0%25BB%25D1%258C%25D0%25BD%25D0%25B8%25D0%25BA%25D0%25B0">createPoints - создание случайных точек для треугольника</a></li><li><a href="global.html#difference">difference</a></li><li><a href="global.html#difference-%25D0%259E%25D0%25BF%25D1%2580%25D0%25B5%25D0%25B4%25D0%25B5%25D0%25BB%25D1%258F%25D0%25B5%25D1%2582%25D1%2580%25D0%25B0%25D0%25B7%25D0%25BB%25D0%25B8%25D1%2587%25D0%25B8%25D0%25B5%25D0%25B2%25D1%2586%25D0%25B5%25D0%25BB%25D0%25BE%25D0%25BC%25D0%25BC%25D0%25B5%25D0%25B6%25D0%25B4%25D1%2583%25D0%25B4%25D0%25B2%25D1%2583%25D0%25BC%25D1%258F%25D0%25B8%25D0%25B7%25D0%25BE%25D0%25B1%25D1%2580%25D0%25B0%25D0%25B6%25D0%25B5%25D0%25BD%25D0%25B8%25D1%258F%25D0%25BC%25D0%25B8">difference - Определяет различие в целом между двумя изображениями</a></li><li><a href="global.html#differenceToDistance">differenceToDistance</a></li><li><a href="global.html#distance-%25D0%259E%25D0%25BF%25D1%2580%25D0%25B5%25D0%25B4%25D0%25B5%25D0%25BB%25D1%258F%25D0%25B5%25D1%2582%25D1%2580%25D0%25B0%25D0%25B7%25D0%25BD%25D0%25B8%25D1%2586%25D1%2583%25D0%25B2%25D1%2580%25D0%25B0%25D1%2581%25D1%2581%25D1%2582%25D0%25BE%25D1%258F%25D0%25BD%25D0%25B8%25D0%25B8%25D0%25BC%25D0%25B5%25D0%25B6%25D0%25B4%25D1%2583%25D0%25BF%25D0%25B8%25D0%25BA%25D1%2581%25D0%25B5%25D0%25BB%25D1%258F%25D0%25BC%25D0%25B8%25D0%25BE%25D0%25B4%25D0%25BD%25D0%25BE%25D0%25B3%25D0%25BE%25D0%25B8%25D0%25B7%25D0%25BE%25D0%25B1%25D1%2580%25D0%25B0%25D0%25B6%25D0%25B5%25D0%25BD%25D0%25B8%25D0%25B5%25D0%25B8%25D0%25B4%25D1%2580%25D1%2583%25D0%25B3%25D0%25BE%25D0%25B3%25D0%25BE">distance - Определяет разницу в расстоянии между пикселями одного изображение и другого</a></li><li><a href="global.html#distanceToDifference">distanceToDifference</a></li><li><a href="global.html#drawStep-%25D0%259E%25D1%2582%25D1%2580%25D0%25B8%25D1%2581%25D0%25BE%25D0%25B2%25D0%25BA%25D0%25B0%25D1%2581%25D0%25BB%25D0%25B5%25D0%25B4%25D1%2583%25D1%258E%25D1%2589%25D0%25B5%25D0%25B3%25D0%25BE%25D0%25BD%25D0%25B0%25D0%25BE%25D1%2587%25D0%25B5%25D1%2580%25D0%25B5%25D0%25B4%25D0%25B8%25D1%2588%25D0%25B0%25D0%25B3%25D0%25B0">drawStep - Отрисовка следующего на очереди шага</a></li><li><a href="global.html#empty-%25D1%2581%25D0%25BE%25D0%25B7%25D0%25B4%25D0%25B0%25D1%2591%25D1%2582%25D0%25BF%25D1%2583%25D1%2581%25D1%2582%25D0%25BE%25D0%25B9%25D1%2585%25D0%25BE%25D0%25BB%25D1%2581%25D1%2582">empty - создаёт пустой холст</a></li><li><a href="global.html#fixRange-%25D1%2584%25D0%25B8%25D0%25BA%25D1%2581%25D0%25B8%25D1%2580%25D1%2583%25D0%25B5%25D1%2582%25D1%2582%25D0%25B5%25D0%25BA%25D1%2583%25D1%2589%25D0%25B8%25D0%25B5%25D0%25BD%25D0%25B0%25D1%2581%25D1%2582%25D1%2580%25D0%25BE%25D0%25B9%25D0%25BA%25D0%25B8">fixRange - фиксирует текущие настройки</a></li><li><a href="global.html#getConfig">getConfig</a></li><li><a href="global.html#getImageData-%25D0%2592%25D0%25BE%25D0%25B7%25D0%25B2%25D1%2580%25D0%25B0%25D1%2589%25D0%25B0%25D0%25B5%25D1%2582%25D0%25B8%25D0%25B7%25D0%25BE%25D0%25B1%25D1%2580%25D0%25B0%25D0%25B6%25D0%25B5%25D0%25BD%25D0%25B8%25D0%25B5%25D1%2581%25D1%2585%25D0%25BE%25D0%25BB%25D1%2581%25D1%2582%25D0%25B0">getImageData - Возвращает изображение с холста</a></li><li><a href="global.html#getScale">getScale</a></li><li><a href="global.html#go">go</a></li><li><a href="global.html#init">init</a></li><li><a href="global.html#mutate-%25D0%2598%25D0%25B7%25D0%25BC%25D0%25B5%25D0%25BD%25D0%25B5%25D0%25BD%25D0%25B8%25D0%25B5%25D1%258D%25D0%25BB%25D0%25BB%25D0%25B8%25D0%25BF%25D1%2581%25D0%25B0%25D0%25B2%25D0%25BF%25D0%25BE%25D0%25BF%25D1%258B%25D1%2582%25D0%25BA%25D0%25B5%25D1%2581%25D0%25B4%25D0%25B5%25D0%25BB%25D0%25B0%25D1%2582%25D1%258C%25D0%25B5%25D0%25B3%25D0%25BE%25D0%25BB%25D1%2583%25D1%2587%25D1%2588%25D0%25B5">mutate -  Изменение эллипса в попытке сделать его лучше</a></li><li><a href="global.html#mutate-%25D0%25B2%25D0%25BE%25D0%25B7%25D0%25B2%25D1%2580%25D0%25B0%25D1%2589%25D0%25B0%25D0%25B5%25D1%2582%25D1%2581%25D0%25BB%25D0%25B5%25D0%25B3%25D0%25BA%25D0%25B0%25D0%25B8%25D0%25B7%25D0%25BC%25D0%25B5%25D0%25BD%25D1%2591%25D0%25BD%25D0%25BD%25D0%25BE%25D0%25B5%25D0%25BF%25D0%25BE%25D0%25BB%25D0%25BE%25D0%25B6%25D0%25B5%25D0%25BD%25D0%25B8%25D0%25B5">mutate - возвращает слегка изменённое положение</a></li><li><a href="global.html#mutate-%25D0%2598%25D0%25B7%25D0%25BC%25D0%25B5%25D0%25BD%25D0%25B5%25D0%25BD%25D0%25B8%25D0%25B5%25D0%25BF%25D1%2580%25D1%258F%25D0%25BC%25D0%25BE%25D1%2583%25D0%25B3%25D0%25BE%25D0%25BB%25D1%258C%25D0%25BD%25D0%25B8%25D0%25BA%25D0%25B0%25D0%25B2%25D0%25BF%25D0%25BE%25D0%25BF%25D1%258B%25D1%2582%25D0%25BA%25D0%25B5%25D1%2581%25D0%25B4%25D0%25B5%25D0%25BB%25D0%25B0%25D1%2582%25D1%258C%25D0%25B5%25D0%25B3%25D0%25BE%25D0%25BB%25D1%2583%25D1%2587%25D1%2588%25D0%25B5">mutate - Изменение прямоугольника в попытке сделать его лучше</a></li><li><a href="global.html#onSubmit">onSubmit</a></li><li><a href="global.html#original-%25D0%25A1%25D0%25BE%25D0%25B7%25D0%25B4%25D0%25B0%25D1%2591%25D1%2582%25D1%2585%25D0%25BE%25D0%25BB%25D1%2581%25D1%2582%25D0%25B4%25D0%25BB%25D1%258F%25D0%25B8%25D1%2581%25D1%2585%25D0%25BE%25D0%25B4%25D0%25BD%25D0%25BE%25D0%25B3%25D0%25BE%25D0%25B8%25D0%25B7%25D0%25BE%25D0%25B1%25D1%2580%25D0%25B0%25D0%25B6%25D0%25B5%25D0%25BD%25D0%25B8%25D0%25B5">original - Создаёт холст для исходного изображение</a></li><li><a href="global.html#randomPoint()-%25D0%2592%25D0%25BE%25D0%25B7%25D0%25B2%25D1%2580%25D0%25B0%25D1%2589%25D0%25B0%25D0%25B5%25D1%2582%25D1%2581%25D0%25BB%25D1%2583%25D1%2587%25D0%25B0%25D0%25B9%25D0%25BD%25D1%2583%25D1%258E%25D1%2582%25D0%25BE%25D1%2587%25D0%25BA%25D1%2583">randomPoint() - Возвращает случайную точку</a></li><li><a href="global.html#rasterize-%25D0%259E%25D1%2582%25D0%25BE%25D0%25B1%25D1%2580%25D0%25B0%25D0%25B6%25D0%25B5%25D0%25BD%25D0%25B8%25D0%25B5%25D1%2584%25D0%25B8%25D0%25B3%25D1%2583%25D1%2580%25D1%258B%25D0%25BD%25D0%25B0%25D1%2585%25D0%25BE%25D0%25BB%25D1%2581%25D1%2582%25D0%25B5">rasterize - Отображение фигуры на холсте</a></li><li><a href="global.html#start">start</a></li><li><a href="global.html#syncType">syncType</a></li></ul>
 </nav>
 
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.4</a> on Mon Jun 29 2020 14:23:55 GMT+0000 (Coordinated Universal Time)
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.4</a> on Mon Jun 29 2020 15:00:17 GMT+0000 (Coordinated Universal Time)
 </footer>
 
 <script> prettyPrint(); </script>

@@ -2,22 +2,22 @@ import Canvas from "./canvas.js";
 import * as Utility from "./utility.js";
 
 /**
- *
+ *  @class Shape - абстрактный класс фигуры
  */
 export class Shape {
     /**
-     *
-     * @param width
-     * @param height
-     * @returns {number[]}
+     * @method randomPoint() - Возвращает случайную точку
+     * @param width - ширина
+     * @param height - высота
+     * @returns {number[]} - число вершин
      */
     static randomPoint(width, height) {
         return [~~(Math.random()*width), ~~(Math.random()*height)];
     }
 
     /**
-     *
-     * @param cfg
+     * @method create - Создаёт пару переменных - ширину и высоту для текущей фигуры, чтобы в дальнейшем уже с выбранным конструктором создать таковую
+     * @param cfg - конфигурация
      * @returns {*}
      */
     static create(cfg) {
@@ -29,22 +29,22 @@ export class Shape {
 
     /**
      *
-     * @param w
-     * @param h
+     * @param w - ширина
+     * @param h - высота
      */
     constructor(w, h) {
         this.bbox = {};
     }
 
     /**
-     *
+     * @method mutate - изменение свойств фигуры, в попытке сделать её более подходящей
      * @param cfg
      * @returns {Shape}
      */
     mutate(cfg) { return this; }
 
     /**
-     *
+     * @method rasterize - Отображение фигуры на холсте
      * @param alpha
      * @returns {Canvas}
      */
@@ -58,22 +58,18 @@ export class Shape {
         return canvas;
     }
 
-    /**
-     *
-     * @param ctx
-     */
     render(ctx) {}
 }
 
 /**
- *
+ * @class Polygon - Класс полигона
  */
 class Polygon extends Shape {
     /**
      *
-     * @param w
-     * @param h
-     * @param count
+     * @param w - ширина
+     * @param h - высота
+     * @param count - число вершин у полигона
      */
     constructor(w, h, count) {
         super(w, h);
@@ -82,7 +78,7 @@ class Polygon extends Shape {
     }
 
     /**
-     *
+     * @method render - Отрисовка линий полигона, затем их дальнейшая заливка с помощью fill()
      * @param ctx
      */
     render(ctx) {
@@ -99,8 +95,8 @@ class Polygon extends Shape {
     }
 
     /**
-     *
-     * @param cfg
+     * @method mutate - изменение свойств полигона, в попытке сделать его более подходящим
+     * @param cfg - конфигурация
      * @returns {Polygon}
      */
     mutate(cfg) {
@@ -118,10 +114,6 @@ class Polygon extends Shape {
         return clone.computeBbox();
     }
 
-    /**
-     *
-     * @returns {Polygon}
-     */
     computeBbox() {
         let min = [
             this.points.reduce((v, p) => Math.min(v, p[0]), Infinity),
@@ -143,12 +135,11 @@ class Polygon extends Shape {
     }
 
     /**
-     *
-     * @param w
-     * @param h
-     * @param count
-     * @returns {number[]}
-     * @private
+     * @method createPoints - создание случайных точек для треугольника
+     * @param w - ширина
+     * @param h - высота
+     * @param count - количество точек
+     * @returns {number[]} - массив точек
      */
     _createPoints(w, h, count) {
         let first = Shape.randomPoint(w, h);
@@ -168,7 +159,7 @@ class Polygon extends Shape {
 }
 
 /**
- *
+ * @class Trianle - класс треугольника, использует методы из родителя Polygon
  */
 export class Triangle extends Polygon {
     constructor(w, h) {
@@ -177,20 +168,20 @@ export class Triangle extends Polygon {
 }
 
 /**
- *
+ * @class Rectangle - класс прямоугольника, почти все методы из Polygon переписаны
  */
 export class Rectangle extends Polygon {
     /**
      *
-     * @param w
-     * @param h
+     * @param w - ширина
+     * @param h - высота
      */
     constructor(w, h) {
         super(w, h, 4);
     }
 
     /**
-     *
+     * @method mutate - Изменение прямоугольника в попытке сделать его лучше
      * @param cfg
      * @returns {Polygon}
      */
@@ -223,12 +214,11 @@ export class Rectangle extends Polygon {
     }
 
     /**
-     *
-     * @param w
-     * @param h
-     * @param count
+     * @method - создание случайных точек на сетке пикселей.
+     * @param w - ширина
+     * @param h - высота
+     * @param count - число точек
      * @returns {number[][]}
-     * @private
      */
     _createPoints(w, h, count) {
         let p1 = Shape.randomPoint(w, h);
@@ -249,13 +239,13 @@ export class Rectangle extends Polygon {
 }
 
 /**
- *
+ * @class Ellipse() - класс эллипса
  */
 export class Ellipse extends Shape {
     /**
      *
-     * @param w
-     * @param h
+     * @param w - ширина
+     * @param h - высота
      */
     constructor(w, h) {
         super(w, h);
@@ -266,11 +256,6 @@ export class Ellipse extends Shape {
 
         this.computeBbox();
     }
-
-    /**
-     *
-     * @param ctx
-     */
     render(ctx) {
         ctx.beginPath();
         ctx.ellipse(this.center[0], this.center[1], this.rx, this.ry, 0, 0, 2*Math.PI, false);
@@ -278,7 +263,7 @@ export class Ellipse extends Shape {
     }
 
     /**
-     *
+     * @method mutate -  Изменение эллипса в попытке сделать его лучше
      * @param cfg
      * @returns {Ellipse}
      */
@@ -309,11 +294,6 @@ export class Ellipse extends Shape {
 
         return clone.computeBbox();
     }
-
-    /**
-     *
-     * @returns {Ellipse}
-     */
     computeBbox() {
         this.bbox = {
             left: this.center[0] - this.rx,

@@ -24,7 +24,7 @@ export default class GenAlgorithm {
 
     /**
      *
-     * @private
+     * @method _addShape - Добавляет новый примитив на холст, вызывая _findBestStep()
      */
     _addShape() {
         this._findBestStep().then(step => this._optimizeStep(step)).then(step => {
@@ -52,9 +52,8 @@ export default class GenAlgorithm {
     }
 
     /**
-     *
+     * @method _findBestStep() - находит самый подходящий шаг. Селекция, если пользоваться терминологией генетического алгоритма.
      * @returns {Promise<unknown[]>}
-     * @private
      */
     _findBestStep() {
         const LIMIT = this.cfg.shapes;
@@ -77,10 +76,9 @@ export default class GenAlgorithm {
     }
 
     /**
-     *
-     * @param step
+     * @method _optimizeStep - оптимизурует полученный "лучший" шаг с помощью его мутации.
+     * @param {Step} step - текущий шаг
      * @returns {Promise<unknown>}
-     * @private
      */
     _optimizeStep(step) {
         const LIMIT = this.cfg.mutations;

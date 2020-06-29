@@ -11,7 +11,7 @@ const shapeMap = {
 }
 
 /**
-    fixRange(range) fixes ranges of settings
+    @method fixRange - фиксирует текущие настройки
 */
 function fixRange(range) {
     function sync() {
@@ -24,7 +24,7 @@ function fixRange(range) {
 }
 
 /**
- *
+ * Запуск
  */
 export function init() {
     let ranges = document.querySelectorAll("[type=range]");

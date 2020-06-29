@@ -10,6 +10,9 @@ const shapeMap = {
     "ellipse": Ellipse
 }
 
+/**
+fixRange(range) fixes ranges of settings
+*/
 function fixRange(range) {
     function sync() {
         let value = range.value;

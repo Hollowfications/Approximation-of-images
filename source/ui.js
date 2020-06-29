@@ -11,7 +11,7 @@ const shapeMap = {
 }
 
 /**
-fixRange(range) fixes ranges of settings
+    fixRange(range) fixes ranges of settings
 */
 function fixRange(range) {
     function sync() {
@@ -23,12 +23,19 @@ function fixRange(range) {
     sync();
 }
 
+/**
+ *
+ */
 export function init() {
     let ranges = document.querySelectorAll("[type=range]");
     Array.from(ranges).forEach(fixRange);
     /** блокируем ползунки */
 }
 
+/**
+ *
+ * @returns {{}}
+ */
 export function getConfig() {
     let form = document.querySelector("form");
     let cfg = {};

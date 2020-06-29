@@ -1,5 +1,10 @@
 import * as Utility from "./utility.js";
 
+/**
+ *
+ * @param canvas
+ * @returns {string}
+ */
 function getFill(canvas) {
     let data = canvas.getImageData();
     let w = data.width;
@@ -23,11 +28,26 @@ function getFill(canvas) {
     rgb = rgb.map(x => ~~(x/count)).map(Utility.clampColor);
     return `rgb(${rgb[0]}, ${rgb[1]}, ${rgb[2]})`;
 }
+
+/**
+ *
+ */
 export default class Canvas {
+    /**
+     *
+     * @param cfg
+     * @returns {Canvas}
+     */
     static empty(cfg) {
             return new this(cfg.width, cfg.height).fill(cfg.fill);
     }
 
+    /**
+     *
+     * @param url
+     * @param cfg
+     * @returns {Promise<unknown>}
+     */
     static original(url, cfg) {
 
         return new Promise(resolve => {
@@ -55,18 +75,32 @@ export default class Canvas {
         this.ctx = this.node.getContext("2d");
         this._imageData = null;
     }
+
+    /**
+     *
+     * @returns {Canvas}
+     */
     clone() {
         let otherCanvas = new this.constructor(this.node.width, this.node.height);
         otherCanvas.ctx.drawImage(this.node, 0, 0);
         return otherCanvas;
     }
 
+    /**
+     *
+     * @param color
+     * @returns {Canvas}
+     */
     fill(color) {
         this.ctx.fillStyle = color;
         this.ctx.fillRect(0, 0, this.node.width, this.node.height);
         return this;
     }
 
+    /**
+     *
+     * @returns {null}
+     */
     getImageData() {
         if (!this._imageData) {
             this._imageData = this.ctx.getImageData(0, 0, this.node.width, this.node.height);
@@ -74,6 +108,11 @@ export default class Canvas {
         return this._imageData;
     }
 
+    /**
+     *
+     * @param otherCanvas
+     * @returns {number}
+     */
     difference(otherCanvas) {
         let data = this.getImageData();
         let dataOther = otherCanvas.getImageData();
@@ -81,11 +120,21 @@ export default class Canvas {
         return Utility.difference(data, dataOther);
     }
 
+    /**
+     *
+     * @param otherCanvas
+     * @returns {*}
+     */
     distance(otherCanvas) {
         let difference = this.difference(otherCanvas);
         return Utility.differenceToDistance(difference, this.node.width*this.node.height);
     }
 
+    /**
+     *
+     * @param step
+     * @returns {Canvas}
+     */
     drawStep(step) {
         this.ctx.globalAlpha = step.alpha;
         this.ctx.fillStyle = step.color;

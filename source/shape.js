@@ -1,11 +1,25 @@
 import Canvas from "./canvas.js";
 import * as Utility from "./utility.js";
 
+/**
+ *
+ */
 export class Shape {
+    /**
+     *
+     * @param width
+     * @param height
+     * @returns {number[]}
+     */
     static randomPoint(width, height) {
         return [~~(Math.random()*width), ~~(Math.random()*height)];
     }
 
+    /**
+     *
+     * @param cfg
+     * @returns {*}
+     */
     static create(cfg) {
         let ctors = cfg.shapeTypes;
         let index = Math.floor(Math.random() * ctors.length);
@@ -13,10 +27,27 @@ export class Shape {
         return new ctor(cfg.width, cfg.height);
     }
 
+    /**
+     *
+     * @param w
+     * @param h
+     */
     constructor(w, h) {
         this.bbox = {};
     }
+
+    /**
+     *
+     * @param cfg
+     * @returns {Shape}
+     */
     mutate(cfg) { return this; }
+
+    /**
+     *
+     * @param alpha
+     * @returns {Canvas}
+     */
     rasterize(alpha) {
         let canvas = new Canvas(this.bbox.width, this.bbox.height);
         let ctx = canvas.ctx;
@@ -27,16 +58,33 @@ export class Shape {
         return canvas;
     }
 
+    /**
+     *
+     * @param ctx
+     */
     render(ctx) {}
 }
 
+/**
+ *
+ */
 class Polygon extends Shape {
+    /**
+     *
+     * @param w
+     * @param h
+     * @param count
+     */
     constructor(w, h, count) {
         super(w, h);
         this.points = this._createPoints(w, h, count);
         this.computeBbox();
     }
 
+    /**
+     *
+     * @param ctx
+     */
     render(ctx) {
         ctx.beginPath();
         this.points.forEach(([x, y], index) => {
@@ -49,6 +97,12 @@ class Polygon extends Shape {
         ctx.closePath();
         ctx.fill();
     }
+
+    /**
+     *
+     * @param cfg
+     * @returns {Polygon}
+     */
     mutate(cfg) {
         let clone = new this.constructor(0, 0);
         clone.points = this.points.map(point => point.slice());
@@ -63,6 +117,11 @@ class Polygon extends Shape {
 
         return clone.computeBbox();
     }
+
+    /**
+     *
+     * @returns {Polygon}
+     */
     computeBbox() {
         let min = [
             this.points.reduce((v, p) => Math.min(v, p[0]), Infinity),
@@ -82,6 +141,15 @@ class Polygon extends Shape {
 
         return this;
     }
+
+    /**
+     *
+     * @param w
+     * @param h
+     * @param count
+     * @returns {[number[]]}
+     * @private
+     */
     _createPoints(w, h, count) {
         let first = Shape.randomPoint(w, h);
         let points = [first];
@@ -98,17 +166,34 @@ class Polygon extends Shape {
     }
 
 }
+
+/**
+ *
+ */
 export class Triangle extends Polygon {
     constructor(w, h) {
         super(w, h, 3);
     }
 }
 
+/**
+ *
+ */
 export class Rectangle extends Polygon {
+    /**
+     *
+     * @param w
+     * @param h
+     */
     constructor(w, h) {
         super(w, h, 4);
     }
 
+    /**
+     *
+     * @param cfg
+     * @returns {Polygon}
+     */
     mutate(cfg) {
         let clone = new this.constructor(0, 0);
         clone.points = this.points.map(point => point.slice());
@@ -136,6 +221,15 @@ export class Rectangle extends Polygon {
 
         return clone.computeBbox();
     }
+
+    /**
+     *
+     * @param w
+     * @param h
+     * @param count
+     * @returns {number[][]}
+     * @private
+     */
     _createPoints(w, h, count) {
         let p1 = Shape.randomPoint(w, h);
         let p2 = Shape.randomPoint(w, h);
@@ -154,7 +248,15 @@ export class Rectangle extends Polygon {
     }
 }
 
+/**
+ *
+ */
 export class Ellipse extends Shape {
+    /**
+     *
+     * @param w
+     * @param h
+     */
     constructor(w, h) {
         super(w, h);
 
@@ -165,12 +267,21 @@ export class Ellipse extends Shape {
         this.computeBbox();
     }
 
+    /**
+     *
+     * @param ctx
+     */
     render(ctx) {
         ctx.beginPath();
         ctx.ellipse(this.center[0], this.center[1], this.rx, this.ry, 0, 0, 2*Math.PI, false);
         ctx.fill();
     }
 
+    /**
+     *
+     * @param cfg
+     * @returns {Ellipse}
+     */
     mutate(cfg) {
         let clone = new this.constructor(0, 0);
         clone.center = this.center.slice();
@@ -199,6 +310,10 @@ export class Ellipse extends Shape {
         return clone.computeBbox();
     }
 
+    /**
+     *
+     * @returns {Ellipse}
+     */
     computeBbox() {
         this.bbox = {
             left: this.center[0] - this.rx,

@@ -11,7 +11,11 @@ const nodes = {
 }
 
 let steps; // Количество шагов (фигур), за которые программа должна отрисовать изображение
-
+/**
+ *
+ * @param original
+ * @param cfg
+ */
 function go(original, cfg) { // и наконец сюда после onSubmit(e)
     nodes.steps.innerHTML = "";
     nodes.original.innerHTML = "";
@@ -38,6 +42,11 @@ function go(original, cfg) { // и наконец сюда после onSubmit(e
     }
     genAlgorithm.start();
 }
+
+/**
+ *
+ * @param e
+ */
 function onSubmit(e) { // потом сюда после init()
     e.preventDefault();
     let inputFile = document.querySelector("input[type=file]");
@@ -50,6 +59,9 @@ function onSubmit(e) { // потом сюда после init()
     Canvas.original(url, cfg).then(original => go(original, cfg)); // какие-то новые фишки, похоже на connect'ы из Qt5
 }
 
+/**
+ *
+ */
 function init() { // то есть здесь
     nodes.output.style.display = "none";
     nodes.types.forEach(input => input.addEventListener("click", syncType));
@@ -57,6 +69,10 @@ function init() { // то есть здесь
     syncType();
     document.querySelector("form").addEventListener("submit", onSubmit);
 }
+
+/**
+ *
+ */
 function syncType() {
     nodes.output.className = "";
     nodes.types.forEach(input => {

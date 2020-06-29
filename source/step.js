@@ -1,8 +1,15 @@
 import * as Utility from "./utility.js";
 import State from "./state.js";
 
-/* Шаг: Форма, цвет и альфа-канал */
+/**
+ *  Шаг: Форма, цвет и альфа-канал
+ */
 export default class Step {
+    /**
+     *
+     * @param shape
+     * @param cfg
+     */
     constructor(shape, cfg) {
         this.shape = shape;
         this.cfg = cfg;
@@ -12,13 +19,21 @@ export default class Step {
         this.color = "#000";
         this.distance = Infinity;
     }
-    /* применять данный шаг (step) к текущему положению (state) чтобы получить новое положение. Применять только после compute() */
+    /** применять данный шаг (step) к текущему положению (state) чтобы получить новое положение. Применять только после compute()
+     *
+     * @param state
+     * @returns {State}
+     */
     apply(state) {
         let newCanvas = state.canvas.clone().drawStep(this);
         return new State(state.target, newCanvas, this.distance);
     }
 
-    /* найти подходящий цвет и вычислить дистанцию */
+    /**
+     *  найти подходящий цвет и вычислить дистанцию
+     * @param state
+     * @returns {Promise<Step>}
+     */
     compute(state) {
         let pixels = state.canvas.node.width * state.canvas.node.height;
         let offset = this.shape.bbox;
@@ -38,7 +53,10 @@ export default class Step {
         return Promise.resolve(this);
     }
 
-    /* возвращает слегка изменённое положение */
+    /**
+     * возвращает слегка изменённое положение
+     * @returns {Step}
+     */
     mutate() {
         let newShape = this.shape.mutate(this.cfg);
         let mutated = new this.constructor(newShape, this.cfg);

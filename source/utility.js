@@ -1,23 +1,63 @@
+/** фактически это файл инструментов, с помощью которого и будет работать генетический алгоритм
+*/
+
+/**
+ *
+ * @param x
+ * @param min
+ * @param max
+ * @returns {number}
+ */
 export function clamp(x, min, max) {
     return Math.max(min, Math.min(max, x));
 }
 
+/**
+ *
+ * @param x
+ * @returns {number}
+ */
 export function clampColor(x) {
     return clamp(x, 0, 255);
 }
 
+/**
+ *
+ * @param width
+ * @param height
+ * @param limit
+ * @returns {number}
+ */
 export function getScale(width, height, limit) {
     return Math.max(width / limit, height / limit, 1);
 }
 
+/**
+ *
+ * @param distance
+ * @param pixels
+ * @returns {number}
+ */
 export function distanceToDifference(distance, pixels) {
     return Math.pow(distance*255, 2) * (3 * pixels);
 }
 
+/**
+ *
+ * @param difference
+ * @param pixels
+ * @returns {number}
+ */
 export function differenceToDistance(difference, pixels) {
     return Math.sqrt(difference / (3 * pixels))/255;
 }
 
+/**
+ *
+ * @param data
+ * @param dataOther
+ * @returns {number}
+ */
 export function difference(data, dataOther) {
     let sum = 0, diff;
     for (let i=0;i<data.data.length;i++) {
@@ -29,6 +69,13 @@ export function difference(data, dataOther) {
     return sum;
 }
 
+/**
+ *
+ * @param offset
+ * @param imageData
+ * @param alpha
+ * @returns {number[]}
+ */
 function computeColor(offset, imageData, alpha) {
     let color = [0, 0, 0];
     let {shape, current, target} = imageData;
@@ -66,6 +113,13 @@ function computeColor(offset, imageData, alpha) {
     return color.map(x => ~~(x/count)).map(clampColor);
 }
 
+/**
+ *
+ * @param offset
+ * @param imageData
+ * @param color
+ * @returns {number}
+ */
 function computeDifferenceChange(offset, imageData, color) {
     let {shape, current, target} = imageData;
     let shapeData = shape.data;
@@ -113,6 +167,13 @@ function computeDifferenceChange(offset, imageData, color) {
     return sum;
 }
 
+/**
+ *
+ * @param offset
+ * @param imageData
+ * @param alpha
+ * @returns {{color: string, differenceChange: number}}
+ */
 export function computeColorAndDifferenceChange(offset, imageData, alpha) {
     let rgb = computeColor(offset, imageData, alpha);
     let differenceChange = computeDifferenceChange(offset, imageData, rgb);
@@ -122,7 +183,6 @@ export function computeColorAndDifferenceChange(offset, imageData, alpha) {
     return {color, differenceChange};
 }
 
-// фактически это файл инструментов, с помощью которого и будет работать генетический алгоритм
 
 
 

@@ -26,7 +26,7 @@ function fixRange(range) {
 export function init() {
     let ranges = document.querySelectorAll("[type=range]");
     Array.from(ranges).forEach(fixRange);
-    // блокируем ползунки
+    /** блокируем ползунки */
 }
 
 export function getConfig() {

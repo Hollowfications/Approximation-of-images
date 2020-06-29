@@ -147,7 +147,7 @@ class Polygon extends Shape {
      * @param w
      * @param h
      * @param count
-     * @returns {[number[]]}
+     * @returns {number[]}
      * @private
      */
     _createPoints(w, h, count) {

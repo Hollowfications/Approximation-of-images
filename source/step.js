@@ -2,9 +2,9 @@ import * as Utility from "./utility.js";
 import State from "./state.js";
 
 /**
- * @class Шаг
- * @param shape - Форма
- * @param cfg - текущая конфигурация
+ * @class Step - шаг
+ * @param {Shape} shape - Форма
+ * @param {cfg} cfg - текущая конфигурация
  * @param alpha - альфа-канал
  */
 export default class Step {
@@ -17,8 +17,8 @@ export default class Step {
         this.color = "#000";
         this.distance = Infinity;
     }
-    /** Применять данный шаг (step) к текущему положению (state) чтобы получить новое положение. Применять только после compute()
-     * @class Шаг
+    /**
+     * @method apply - Применяmь данный шаг (step) к текущему положению (state) чтобы получить новое положение. Применяется после compute()
      * @param state
      * @returns {State}
      */
@@ -28,15 +28,14 @@ export default class Step {
     }
 
     /**
-     * @method Найти подходящий цвет и вычислить дистанцию
-     * @param state - Текущее состояние
+     * @method compute - Найти подходящий цвет и вычислить дистанцию
+     * @param {State} state - Текущее состояние
      * @param pixels
      * @returns {Promise<Step>}
      */
     compute(state) {
         let pixels = state.canvas.node.width * state.canvas.node.height;
         let offset = this.shape.bbox;
-
         let imageData = {
             shape: this.shape.rasterize(this.alpha).getImageData(),
             current: state.canvas.getImageData(),
@@ -53,7 +52,8 @@ export default class Step {
     }
 
     /**
-     * возвращает слегка изменённое положение
+     * *
+     * @method mutate - возвращает слегка изменённое положение
      * @returns {Step}
      */
     mutate() {

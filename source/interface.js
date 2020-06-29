@@ -13,7 +13,8 @@ const nodes = {
 let steps;
 /**
  *
- * @param original - исходное изображение
+ * @param {Canvas} original - исходное изображение
+ * @param {Canvas} result - новое изображение
  * @param cfg - конфигурация
  * @param steps - Количество шагов (фигур), за которые программа должна отрисовать изображение
  */

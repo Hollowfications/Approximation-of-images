@@ -1,8 +1,8 @@
 import * as Utility from "./utility.js";
 
 /**
- *
- * @param canvas
+ * @method getFill - Заливка фигуры/холста подходящим цветом из Utility.clampColor()
+ * @param {Canvas} canvas
  * @returns {string}
  */
 function getFill(canvas) {
@@ -30,12 +30,12 @@ function getFill(canvas) {
 }
 
 /**
- *
+ * @class Canvas - Класс, отвечающий за отрисовку изображений, абстрактный холст
  */
 export default class Canvas {
     /**
-     *
-     * @param cfg
+     * @method empty - создаёт пустой холст
+     * @param cfg - текущие параметры
      * @returns {Canvas}
      */
     static empty(cfg) {
@@ -43,9 +43,9 @@ export default class Canvas {
     }
 
     /**
-     *
-     * @param url
-     * @param cfg
+     * @method original - Создаёт холст для исходного изображение
+     * @param url - исходное изображение в виде URL ссылки
+     * @param cfg - текущие параметры
      * @returns {Promise<unknown>}
      */
     static original(url, cfg) {
@@ -71,8 +71,8 @@ export default class Canvas {
 
     /**
      *
-     * @param width
-     * @param height
+     * @param width - ширина холста
+     * @param height - высота холста
      */
     constructor(width, height) {
         this.node = document.createElement("canvas");
@@ -83,7 +83,7 @@ export default class Canvas {
     }
 
     /**
-     *
+     * @method clone - Создаёт копию холста
      * @returns {Canvas}
      */
     clone() {
@@ -93,7 +93,7 @@ export default class Canvas {
     }
 
     /**
-     *
+     * @method Заполняет холст цветом. Цвет настраивается в пользовательском интерфейсе
      * @param color
      * @returns {Canvas}
      */
@@ -104,7 +104,7 @@ export default class Canvas {
     }
 
     /**
-     *
+     * @method getImageData - Возвращает изображение с холста
      * @returns {null}
      */
     getImageData() {
@@ -115,8 +115,8 @@ export default class Canvas {
     }
 
     /**
-     *
-     * @param otherCanvas
+     * @method difference - Определяет различие в целом между двумя изображениями
+     * @param {Canvas} otherCanvas
      * @returns {number}
      */
     difference(otherCanvas) {
@@ -127,8 +127,8 @@ export default class Canvas {
     }
 
     /**
-     *
-     * @param otherCanvas
+     * @method distance - Определяет разницу в расстоянии между пикселями одного изображение и другого
+     * @param {Canvas} otherCanvas
      * @returns {*}
      */
     distance(otherCanvas) {
@@ -137,8 +137,8 @@ export default class Canvas {
     }
 
     /**
-     *
-     * @param step
+     * @method drawStep - Отрисовка следующего на очереди шага
+     * @param {Step} step
      * @returns {Canvas}
      */
     drawStep(step) {

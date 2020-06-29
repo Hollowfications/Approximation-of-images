@@ -10,11 +10,12 @@ const nodes = {
     types: Array.from(document.querySelectorAll("#output [name=type]"))
 }
 
-let steps; // Количество шагов (фигур), за которые программа должна отрисовать изображение
+let steps;
 /**
  *
- * @param original
- * @param cfg
+ * @param original - исходное изображение
+ * @param cfg - конфигурация
+ * @param steps - Количество шагов (фигур), за которые программа должна отрисовать изображение
  */
 function go(original, cfg) { // и наконец сюда после onSubmit(e)
     nodes.steps.innerHTML = "";
@@ -44,10 +45,9 @@ function go(original, cfg) { // и наконец сюда после onSubmit(e
 }
 
 /**
- *
- * @param e
+ * Запускается после всех синхронизация параметров при нажатии на клавишу Create Image, изображение предстваляется в виде URL файла, создается конфигурация алгоритма.
  */
-function onSubmit(e) { // потом сюда после init()
+function onSubmit(e) {
     e.preventDefault();
     let inputFile = document.querySelector("input[type=file]");
     let url = "";
@@ -56,13 +56,13 @@ function onSubmit(e) { // потом сюда после init()
         url = URL.createObjectURL(file);
     }
     let cfg = ui.getConfig();
-    Canvas.original(url, cfg).then(original => go(original, cfg)); // какие-то новые фишки, похоже на connect'ы из Qt5
+    Canvas.original(url, cfg).then(original => go(original, cfg));
 }
 
 /**
- *
+ * Запуск программы
  */
-function init() { // то есть здесь
+function init() {
     nodes.output.style.display = "none";
     nodes.types.forEach(input => input.addEventListener("click", syncType));
     ui.init();
@@ -71,7 +71,7 @@ function init() { // то есть здесь
 }
 
 /**
- *
+ * Синхронизация параметров из пользовательского интерфейса
  */
 function syncType() {
     nodes.output.className = "";
@@ -80,4 +80,4 @@ function syncType() {
     });
 }
 
-init(); // запуск идёт отсюда
+init();

@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>Approximation of images</title>
+    <link rel="stylesheet" href="css/app.css" />
+
+
+</head>
+<body>
+<h1>Image Approximation</h1>
+
+<form>
+    <div id="shapeChoice">
+    <p>Use these shape types:</p>
+    <label><input type="checkbox" name="shapeType" value="triangle" checked="checked" />triangles</label><br/>
+    <label><input type="checkbox" name="shapeType" value="rectangle" />rectangles</label><br/>
+    <label><input type="checkbox" name="shapeType" value="ellipse" />ellipses</label><br/>
+    </div>
+    <div id="scrolls">
+        <div id="shapeNumber">
+            <p>Add <span class="value"></span> geometric shapes (large number: better results, slower)</p>
+            <input name="steps" type="range" min="1" max="500" value="50" />
+        </div>
+        <div id="randomShapes">
+            <p>Start every iteration with <span class="value"></span> random shapes (larger number: more precise results, slower)</p>
+            <input name="shapes" type="range" min="1" max="1000" value="200" />
+        </div>
+        <div id="stop">
+            <p>Stop shape optimization after <span class="value"></span> failures (larger number: more precise results, slower)</p>
+            <input name="mutations" type="range" min="0" max="100" value="30" />
+        </div>
+        <div id="opacityAlpha">
+            <p>Starting opacity: <span class="value"></span></p>
+            <input name="alpha" type="range" min="0" max="1" step="0.1" value="0.5" /><br/>
+            <label><input id="autoOpacity" type="checkbox" name="mutateAlpha" checked="checked" />Adjust opacity automatically</label>
+        </div>
+        <div id="backgroundColor">
+            <p>Fill background with:
+            <label><input id="colorButton" type="radio" name="fill" value="auto" checked="checked" />an auto-detected color</label><br/>
+            <label><input id="colorButton" type="radio" name="fill" value="fixed" />a fixed color:
+            <input type="color" value="#ffffff" name="fill-color" /></label>
+            </p>
+        </div>
+        <div id="compSize">
+            <p>Computation size: <span class="value"></span> pixels (smaller is faster)</p>
+            <input name="computeSize" type="range" min="128" max="1024" value="256" /><br/>
+        </div>
+
+    </div>
+    <div id="buttons">
+        <input type="submit" value="Create image" />
+            <input type="file" value="Download image">
+<!--            <label>Download image</label>-->
+    </div>
+
+</form>
+
+<div id="output">
+    <div>
+        <h3>Original</h3>
+        <div id="original"></div>
+    </div>
+    <div>
+        <h3>Result <span id="steps"></span></h3>
+        <div class="raster" id="raster"></div>
+    </div>
+</div>
+
+<script type="module" src="source/interface.js"></script>
+</body>
+</html>

@@ -1,3 +1,6 @@
+/**
+ * @file Файл, в котором содержится как таковой генетический алгоритм.
+ */
 import Step from "./step.js";
 import State from "./state.js";
 import Canvas from "./canvas.js";

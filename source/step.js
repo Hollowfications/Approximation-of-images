@@ -1,3 +1,6 @@
+/**
+ * @file Файл, содержащий вспомогательный класс {Step} Step.
+ */
 import * as Utility from "./utility.js";
 import State from "./state.js";
 

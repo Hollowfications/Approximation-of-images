@@ -32,13 +32,13 @@ function getFill(canvas) {
     return `rgb(${rgb[0]}, ${rgb[1]}, ${rgb[2]})`;
 }
 
-/**
- * @class Canvas - Класс, отвечающий за отрисовку изображений, абстрактный холст
- */
+
  export default class Canvas {
 /**
-* @param width - ширина холста
-* @param height - высота холста
+ * Класс, отвечающий за отрисовку изображений, абстрактный холст
+ * @class Canvas
+ * @param width - ширина холста
+ * @param height - высота холста
 */
     constructor(width, height) {
         this.node = document.createElement("canvas");
